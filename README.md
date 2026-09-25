@@ -9,7 +9,7 @@
 
 An enterprise-grade, portfolio-ready AI Employee Assistant built for **Roboserv 4i Private Limited** that combines **Retrieval-Augmented Generation (RAG)** for policy knowledge questions with an **Agentic AI workflow (LangGraph)** for automated HR tasks with **human-in-the-loop confirmation safety**.
 
-Designed specifically for **TCS NQT / AI-ML / GenAI Specialist interview portfolios**, showcasing clean software design, production guardrails, and real retrieval without mockups.
+Designed as a production-grade AI HR & Policy Assistant, showcasing clean software architecture, deterministic guardrails, human-in-the-loop safety, and grounded semantic retrieval without mockups.
 
 ---
 

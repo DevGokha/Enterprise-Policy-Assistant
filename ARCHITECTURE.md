@@ -1,6 +1,6 @@
 # Architecture & Technical Design — Enterprise Policy Assistant
 
-This document outlines the architectural blueprint, data flows, and design decisions for the **Roboserv 4i Enterprise Policy Assistant**. This reference is designed for technical deep-dives and engineering interviews (e.g., TCS NQT / AI-ML / GenAI Specialist interviews).
+This document outlines the architectural blueprint, data flows, and design decisions for the **Roboserv 4i Enterprise Policy Assistant**. This reference is designed for technical deep-dives and production engineering reviews.
 
 ---
 
