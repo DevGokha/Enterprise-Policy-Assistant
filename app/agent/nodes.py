@@ -196,19 +196,16 @@ def policy_question_node(state: AgentState) -> Dict[str, Any]:
     # Step: LLM grounded answer generation
     answer = generate_rag_answer(retrieved_chunks, query)
 
-    # Format sources
+    # Format sources (Filter to top primary matching policy document)
     sources = []
-    seen = set()
-    for chunk in retrieved_chunks:
-        key = (chunk.get("source"), chunk.get("page"))
-        if key not in seen:
-            seen.add(key)
-            sources.append({
-                "document": chunk.get("source"),
-                "page": chunk.get("page"),
-                "department": chunk.get("department", "HR"),
-                "document_type": chunk.get("document_type", "Policy")
-            })
+    if retrieved_chunks:
+        top_chunk = retrieved_chunks[0]
+        sources.append({
+            "document": top_chunk.get("source"),
+            "page": top_chunk.get("page"),
+            "department": top_chunk.get("department", "HR"),
+            "document_type": top_chunk.get("document_type", "Policy")
+        })
 
     return {
         "retrieved_context": retrieved_chunks,

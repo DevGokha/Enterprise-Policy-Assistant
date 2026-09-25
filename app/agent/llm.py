@@ -83,8 +83,7 @@ def generate_rag_answer(context_chunks: list, question: str) -> str:
     first_two_lines = "\n".join(text_snippet.splitlines()[:4])
     return (
         f"According to the official {top_chunk.get('document_type', 'Policy')} ({src}, Page {pg}):\n\n"
-        f"{first_two_lines}\n\n"
-        f"Source: {src}, Page {pg}"
+        f"{first_two_lines}"
     )
 
 

@@ -314,10 +314,10 @@ for idx, msg in enumerate(st.session_state.messages):
 
         st.markdown(msg["content"])
         
-        # Display policy citations if available
+        # Display policy citation if available (Option 2: Top relevant source)
         if msg.get("sources"):
-            st.markdown("##### 📚 Sources & Citations:")
-            for s in msg["sources"]:
+            st.markdown("##### 📚 Policy Source:")
+            for s in msg["sources"][:1]:
                 st.markdown(
                     f'<div class="citation-card">'
                     f'📄 <b>{s.get("document")}</b> — Page <b>{s.get("page")}</b> | '
@@ -483,8 +483,8 @@ if user_input:
             st.markdown(displayed_answer)
 
             if sources:
-                st.markdown("##### 📚 Sources & Citations:")
-                for s in sources:
+                st.markdown("##### 📚 Policy Source:")
+                for s in sources[:1]:
                     st.markdown(
                         f'<div class="citation-card">'
                         f'📄 <b>{s.get("document")}</b> — Page <b>{s.get("page")}</b> | '
