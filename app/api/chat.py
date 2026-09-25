@@ -106,15 +106,26 @@ def chat_endpoint(req: ChatRequest):
         raise HTTPException(status_code=400, detail="Message cannot be empty.")
 
     try:
+        from app.agent.llm import translate_to_english, translate_text
+        query = req.message
+        has_devanagari = any('\u0900' <= char <= '\u097f' for char in query)
+        if has_devanagari:
+            query = translate_to_english(query)
+            logger.info(f"Translated query for agent: '{query}'")
+
         result = run_agent_workflow(
-            query=req.message,
+            query=query,
             employee_id=req.employee_id,
             confirmed=req.confirmed,
             extra_state=req.extra_state
         )
 
+        final_ans = result.get("final_response", "")
+        if has_devanagari and final_ans:
+            final_ans = translate_text(final_ans, "hi")
+
         return ChatResponse(
-            answer=result.get("final_response", ""),
+            answer=final_ans,
             intent=result.get("intent", "general_question"),
             sources=result.get("sources", []),
             actions=result.get("actions", []),

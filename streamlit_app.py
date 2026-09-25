@@ -335,8 +335,7 @@ with st.sidebar:
         "Response Language / भाषा निवडा:",
         options=lang_keys,
         format_func=lambda x: lang_map[x],
-        index=curr_idx,
-        key="sb_lang_select"
+        index=curr_idx
     )
     if selected_lang != st.session_state.app_language:
         st.session_state.app_language = selected_lang
@@ -413,15 +412,19 @@ col_p1, col_p2, col_p3, col_p4 = st.columns(4)
 with col_p1:
     if st.button(ui["p1_label"], use_container_width=True, key="qp_1"):
         st.session_state.queued_prompt = ui["p1_query"]
+        st.session_state.queued_display = ui["p1_label"]
 with col_p2:
     if st.button(ui["p2_label"], use_container_width=True, key="qp_2"):
         st.session_state.queued_prompt = ui["p2_query"]
+        st.session_state.queued_display = ui["p2_label"]
 with col_p3:
     if st.button(ui["p3_label"], use_container_width=True, key="qp_3"):
         st.session_state.queued_prompt = ui["p3_query"]
+        st.session_state.queued_display = ui["p3_label"]
 with col_p4:
     if st.button(ui["p4_label"], use_container_width=True, key="qp_4"):
         st.session_state.queued_prompt = ui["p4_query"]
+        st.session_state.queued_display = ui["p4_label"]
 
 st.markdown("---")
 
@@ -593,15 +596,20 @@ if st.session_state.pending_confirmation:
 user_input = st.chat_input(ui["chat_placeholder"])
 
 # Check if a quick button was clicked
+display_user_text = None
 if "queued_prompt" in st.session_state and st.session_state.queued_prompt:
     user_input = st.session_state.queued_prompt
+    display_user_text = st.session_state.get("queued_display", user_input)
     st.session_state.queued_prompt = None
+    st.session_state.queued_display = None
+else:
+    display_user_text = user_input
 
 if user_input:
     # Append user message
-    st.session_state.messages.append({"role": "user", "content": user_input})
+    st.session_state.messages.append({"role": "user", "content": display_user_text})
     with st.chat_message("user"):
-        st.markdown(user_input)
+        st.markdown(display_user_text)
 
     # Invoke assistant
     with st.chat_message("assistant"):
@@ -621,13 +629,14 @@ if user_input:
 
             # Auto-translate if user selected Hindi or Marathi
             displayed_answer = answer
+            curr_app_lang = st.session_state.get("app_language", "en")
             curr_lang = "en"
             trans_cache = {"en": answer}
-            if selected_lang != "en":
-                with st.spinner(f"Translating response to {lang_map.get(selected_lang)}..."):
-                    displayed_answer = call_translate_api(answer, selected_lang)
-                    curr_lang = selected_lang
-                    trans_cache[selected_lang] = displayed_answer
+            if curr_app_lang != "en":
+                with st.spinner(ui["translating"]):
+                    displayed_answer = call_translate_api(answer, curr_app_lang)
+                    curr_lang = curr_app_lang
+                    trans_cache[curr_app_lang] = displayed_answer
 
             st.markdown(displayed_answer)
 

@@ -69,3 +69,31 @@ def test_get_document_pdf_endpoint():
     # Test non-existent file
     res_404 = client.get("/api/documents/non_existent_policy.pdf")
     assert res_404.status_code == 404
+
+
+def test_streamlit_language_toggle():
+    """Verify Streamlit UI switches Quick Prompts dynamically between EN, HI, and MR."""
+    from streamlit.testing.v1 import AppTest
+    from pathlib import Path
+    app_path = Path(__file__).parent.parent / "streamlit_app.py"
+    at = AppTest.from_file(str(app_path))
+    at.run()
+
+    # Initial state should be English
+    assert at.session_state["app_language"] == "en"
+    en_buttons = [b.label for b in at.button if b.key in ("qp_1", "qp_2", "qp_3", "qp_4")]
+    assert "How many casual leaves allowed?" in en_buttons
+
+    # Click Hindi button
+    hi_btn = [b for b in at.button if b.key == "top_l_hi"][0]
+    hi_btn.click().run()
+    assert at.session_state["app_language"] == "hi"
+    hi_buttons = [b.label for b in at.button if b.key in ("qp_1", "qp_2", "qp_3", "qp_4")]
+    assert "कैजुअल लीव कितने मिलते हैं?" in hi_buttons
+
+    # Click Marathi button
+    mr_btn = [b for b in at.button if b.key == "top_l_mr"][0]
+    mr_btn.click().run()
+    assert at.session_state["app_language"] == "mr"
+    mr_buttons = [b.label for b in at.button if b.key in ("qp_1", "qp_2", "qp_3", "qp_4")]
+    assert "किती कॅज्युअल रजा मिळतात?" in mr_buttons

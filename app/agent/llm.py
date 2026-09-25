@@ -159,3 +159,43 @@ def translate_text(text: str, target_lang: str) -> str:
     except Exception as e:
         logger.error(f"Fallback translation error: {e}")
         return text
+
+
+def translate_to_english(text: str) -> str:
+    """Translate Hindi or Marathi text to English for semantic search and intent classification."""
+    if not text or not text.strip():
+        return text
+    # Check if text contains Devanagari characters
+    has_devanagari = any('\u0900' <= char <= '\u097f' for char in text)
+    if not has_devanagari:
+        return text
+
+    cache_key = ("to_en", text.strip())
+    if cache_key in _TRANSLATION_CACHE:
+        return _TRANSLATION_CACHE[cache_key]
+
+    # Option 1: LLM translation
+    llm = get_llm()
+    if llm:
+        try:
+            from langchain_core.messages import SystemMessage, HumanMessage
+            response = llm.invoke([
+                SystemMessage(content="Translate this Hindi/Marathi enterprise HR query into clear English. Output translation only."),
+                HumanMessage(content=text)
+            ])
+            res = response.content.strip()
+            _TRANSLATION_CACHE[cache_key] = res
+            return res
+        except Exception:
+            pass
+
+    # Option 2: Fallback translation
+    try:
+        from deep_translator import MyMemoryTranslator
+        translator = MyMemoryTranslator(source='hi-IN', target='en-US')
+        res = translator.translate(text)
+        _TRANSLATION_CACHE[cache_key] = res
+        return res
+    except Exception as e:
+        logger.error(f"Error translating to English: {e}")
+        return text
