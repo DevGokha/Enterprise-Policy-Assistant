@@ -97,6 +97,7 @@ UI_STRINGS = {
         "translating": "Translating response...",
         "confirm_required": "⚠️ **Confirmation Required:** A state-changing leave transaction is awaiting your authorization.",
         "confirm_btn": "✅ Confirm Leave Request",
+        "submitting": "Submitting authorized leave request...",
         "cancel_btn": "❌ Cancel",
         "clear_btn": "🗑️ Clear Chat History",
         "policy_source": "📚 Policy Source:",
@@ -120,6 +121,7 @@ UI_STRINGS = {
         "translating": "उत्तर का अनुवाद किया जा रहा है...",
         "confirm_required": "⚠️ **पुष्टिकरण आवश्यक:** एक अवकाश आवेदन आपके अनुमोदन की प्रतीक्षा कर रहा है।",
         "confirm_btn": "✅ अवकाश अनुरोध की पुष्टि करें",
+        "submitting": "अवकाश अनुरोध सबमिट किया जा रहा है...",
         "cancel_btn": "❌ रद्द करें",
         "clear_btn": "🗑️ चैट इतिहास साफ़ करें",
         "policy_source": "📚 पॉलिसी स्रोत:",
@@ -143,6 +145,7 @@ UI_STRINGS = {
         "translating": "उत्तराचे भाषांतर करत आहे...",
         "confirm_required": "⚠️ **पुष्टीकरण आवश्यक:** रजेचा अर्ज तुमच्या मंजुरीच्या प्रतीक्षेत आहे.",
         "confirm_btn": "✅ रजेचा अर्ज मंजूर करा",
+        "submitting": "रजेचा अर्ज सादर करत आहे...",
         "cancel_btn": "❌ रद्द करा",
         "clear_btn": "🗑️ चॅट इतिहास साफ करा",
         "policy_source": "📚 धोरण संदर्भ:",
@@ -532,7 +535,7 @@ if st.session_state.pending_confirmation:
     with col_c1:
         if st.button(ui["confirm_btn"], type="primary", use_container_width=True):
             # Process confirmed leave request
-            with st.spinner(ui["submitting"]):
+            with st.spinner(ui.get("submitting", "Submitting authorized leave request...")):
                 resp = call_chat_api(
                     emp_id=selected_emp_id,
                     message="Yes, submit it.",
