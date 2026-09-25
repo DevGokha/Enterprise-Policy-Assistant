@@ -205,11 +205,12 @@ with st.sidebar:
     st.subheader("👤 Active Employee")
 
     employee_options = {
-        "EMP001": "EMP001 — Dev Kumar (AI/ML)",
-        "EMP002": "EMP002 — Priya Sharma (Cloud)",
-        "EMP003": "EMP003 — Rohan Verma (Frontend)",
-        "EMP004": "EMP004 — Ananya Iyer (HR)",
-        "EMP005": "EMP005 — Vikram Malhotra (Executive)"
+        "EMP001": "EMP001 — Abhishek Koli (Electrical & Embedded)",
+        "EMP002": "EMP002 — Raj Teli (Robotic & Software Engg)",
+        "EMP003": "EMP003 — Hrutvik Owal (Robotic-Design)",
+        "EMP004": "EMP004 — Santosh Barai (Robotic-Design)",
+        "EMP005": "EMP005 — Divyansh Jha (Electronics & IOT)",
+        "EMP006": "EMP006 — Dev Gokha (Software Developer)"
     }
 
     selected_emp_id = st.selectbox(

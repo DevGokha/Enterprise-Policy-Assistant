@@ -36,7 +36,7 @@ def test_agent_leave_balance_question():
 
     assert res["intent"] == "leave_balance"
     assert "casual" in res["final_response"].lower()
-    assert "Dev Kumar" in res["final_response"] or "EMP001" in res["final_response"]
+    assert "Abhishek Koli" in res["final_response"] or "EMP001" in res["final_response"]
     assert len(res["actions"]) > 0
     assert res["actions"][0]["action"] == "check_leave_balance"
 

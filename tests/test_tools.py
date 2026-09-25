@@ -24,9 +24,9 @@ def test_get_employee_valid():
     emp = get_employee("EMP001")
     assert emp is not None
     assert emp["employee_id"] == "EMP001"
-    assert emp["name"] == "Dev Kumar"
-    assert emp["department"] == "AI/ML"
-    assert "Rahul Sharma" in emp["manager"]
+    assert emp["name"] == "Abhishek Koli"
+    assert emp["department"] == "Electrical & Embedded"
+    assert "Executive" in emp["manager"]
 
 
 def test_get_employee_invalid():

@@ -112,7 +112,7 @@ sequenceDiagram
     UI->>API: POST /api/chat {confirmed: false}
     API->>Agent: invoke(AgentState)
     Agent->>Agent: classify_intent_node() -> 'leave_request'
-    Agent->>DB: get_employee("EMP001") -> Dev Kumar (AI/ML)
+    Agent->>DB: get_employee("EMP001") -> Abhishek Koli (Electrical & Embedded)
     Agent->>Agent: calculate_leave_days("2026-10-05", "2026-10-07") -> 3 working days
     Agent->>DB: get_leave_balance("EMP001", "casual_leave") -> 8 days
     Agent->>Agent: check_leave_eligibility() -> Eligible (8 >= 3)

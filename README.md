@@ -254,17 +254,17 @@ pytest -v
 ### Scenario 2 — Leave Balance (Database Tool)
 - **User Input:** *"How many paid leaves do I have?"*
 - **Assistant Response:**
-  > "Dev Kumar (EMP001), you currently have **15 days** of Paid Leave remaining."
+  > "Abhishek Koli (EMP001), you currently have **15 days** of Paid Leave remaining."
 - **Action Status:** `⚡ Action: check_leave_balance (completed)`
 
 ### Scenario 3 — Agentic Leave Request (Confirmation Safety)
 - **User Input:** *"Apply casual leave from October 5 to October 7."*
 - **Assistant Response:**
-  > "You are requesting **3 working day(s)** of casual leave from **2026-10-05** to **2026-10-07**.\n\n• Current Leave Balance: 8 days\n• Requested Duration: 3 days\n• Remaining Balance After Approval: 5 days\n• Status: Eligible\n\nWould you like me to submit this leave request?"
+  > "You are requesting **3 working day(s)** of casual leave from **2026-10-05** to **2026-10-07**.\n\n• Current Leave Balance: 10 days\n• Requested Duration: 3 days\n• Remaining Balance After Approval: 7 days\n• Status: Eligible\n\nWould you like me to submit this leave request?"
 - **UI Element:** Renders interactive `[Confirm Leave Request]` button.
 - **User Action:** Clicks `[Confirm Leave Request]` or types *"Yes, submit it."*
 - **Assistant Response:**
-  > "Leave request submitted successfully.\n\n• **Request ID:** **LV1025**\n• **Employee:** Dev Kumar (EMP001)\n• **Period:** 2026-10-05 to 2026-10-07 (3 working day(s))\n• **Leave Type:** Casual Leave\n• **Updated Balance:** 5 days\n• **Status:** Pending approval by your manager (Rahul Sharma)."
+  > "Leave request submitted successfully.\n\n• **Request ID:** **LV1025**\n• **Employee:** Abhishek Koli (EMP001)\n• **Period:** 2026-10-05 to 2026-10-07 (3 working day(s))\n• **Leave Type:** Casual Leave\n• **Updated Balance:** 7 days\n• **Status:** Pending approval by your manager."
 
 ---
 
