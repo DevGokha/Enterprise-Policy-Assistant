@@ -128,3 +128,35 @@ def get_leave_request_status(request_id: str) -> Optional[Dict[str, Any]]:
         return None
     finally:
         db.close()
+
+
+def get_employee_leave_requests(employee_id: str, limit: int = 10) -> list:
+    """Retrieve recent leave requests for a given employee.
+    
+    Args:
+        employee_id: Employee identifier (e.g., 'EMP006').
+        limit: Maximum number of recent requests to return.
+        
+    Returns:
+        List of dictionaries with leave request details.
+    """
+    if not employee_id:
+        return []
+
+    clean_id = employee_id.strip().upper()
+    db = SessionLocal()
+    try:
+        reqs = (
+            db.query(LeaveRequest)
+            .filter(LeaveRequest.employee_id == clean_id)
+            .order_by(LeaveRequest.created_at.desc())
+            .limit(limit)
+            .all()
+        )
+        return [r.to_dict() for r in reqs]
+    except Exception as e:
+        logger.error(f"Error fetching requests for employee {clean_id}: {e}")
+        return []
+    finally:
+        db.close()
+

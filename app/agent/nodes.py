@@ -16,7 +16,7 @@ from app.tools.leave_tool import (
     check_leave_eligibility,
     normalize_leave_type
 )
-from app.tools.request_tool import create_leave_request, get_leave_request_status
+from app.tools.request_tool import create_leave_request, get_leave_request_status, get_employee_leave_requests
 
 logger = logging.getLogger(__name__)
 
@@ -280,8 +280,30 @@ def leave_status_node(state: AgentState) -> Dict[str, Any]:
             req_id = m.group(1).upper()
 
     if not req_id:
+        emp_id = state.get("employee_id", "EMP001")
+        recent = get_employee_leave_requests(emp_id, limit=5)
+        if not recent:
+            return {
+                "final_response": f"You currently have no submitted leave requests on record for employee **{emp_id}**."
+            }
+        
+        req_lines = []
+        for r in recent:
+            icon = "🟢" if r.get("status") == "Approved" else ("🟡" if r.get("status") == "Pending" else "🔴")
+            req_lines.append(
+                f"• **Request {r['request_id']}** ({r['leave_type'].replace('_', ' ').title()}): "
+                f"**{r['start_date']}** to **{r['end_date']}** ({r['days']} working day(s)) — "
+                f"Status: {icon} **{r['status']}**"
+            )
+        
+        resp = (
+            f"**Your Recent Leave Requests ({emp_id}):**\n\n"
+            + "\n".join(req_lines)
+            + "\n\n*(Note: New leave requests are submitted as **Pending** and are reviewed/accepted by your designated reporting manager.)*"
+        )
         return {
-            "final_response": "Please specify the leave request ID you would like to track (e.g., 'Check status for LV1025')."
+            "final_response": resp,
+            "actions": [{"action": "get_employee_leave_requests", "status": "completed", "details": recent}]
         }
 
     status_data = get_leave_request_status(req_id)

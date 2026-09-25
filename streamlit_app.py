@@ -179,6 +179,22 @@ def get_employee_data(emp_id: str):
         return None, None
 
 
+def get_employee_requests_data(emp_id: str):
+    """Retrieve recent leave requests for employee."""
+    try:
+        r = requests.get(f"{API_BASE_URL}/api/employee/{emp_id}/leave-requests", timeout=3)
+        if r.status_code == 200:
+            return r.json()
+    except Exception:
+        pass
+
+    try:
+        from app.tools.request_tool import get_employee_leave_requests
+        return get_employee_leave_requests(emp_id)
+    except Exception:
+        return []
+
+
 def call_chat_api(emp_id: str, message: str, confirmed: bool = False, extra_state: dict = None):
     """Send chat request to FastAPI endpoint with fallback to internal graph."""
     payload = {
@@ -323,6 +339,23 @@ with st.sidebar:
             st.metric(label="Paid", value=f"{bal_info.get('paid_leave', 0)} d")
     else:
         st.info("Leave balances loading...")
+
+    # Recent Leave Requests
+    reqs_data = get_employee_requests_data(selected_emp_id)
+    with st.expander(f"📋 My Leave Requests ({len(reqs_data)})", expanded=(len(reqs_data) > 0)):
+        if reqs_data:
+            for r in reqs_data[:5]:
+                status = r.get("status", "Pending")
+                status_icon = "🟢" if status == "Approved" else ("🟡" if status == "Pending" else "🔴")
+                st.markdown(
+                    f"**{r.get('request_id')}** — {r.get('leave_type', '').replace('_', ' ').title()}  \n"
+                    f"📅 `{r.get('start_date')}` to `{r.get('end_date')}` ({r.get('days')} d)  \n"
+                    f"Status: {status_icon} **{status}**"
+                )
+                st.markdown("---")
+        else:
+            st.caption("No submitted leave requests yet.")
+
 
     st.markdown("---")
     st.subheader("🌐 Language / भाषा")

@@ -12,7 +12,7 @@ from app.agent.graph import run_agent_workflow
 from app.rag.index import run_indexing
 from app.tools.employee_tool import get_employee
 from app.tools.leave_tool import get_leave_balance, calculate_leave_days, check_leave_eligibility
-from app.tools.request_tool import create_leave_request, get_leave_request_status
+from app.tools.request_tool import create_leave_request, get_leave_request_status, get_employee_leave_requests
 from app.database.database import get_db
 
 logger = logging.getLogger(__name__)
@@ -210,6 +210,14 @@ def get_leave_balance_endpoint(employee_id: str):
     if "error" in bal:
         raise HTTPException(status_code=404, detail=bal["error"])
     return bal
+
+
+@router.get("/employee/{employee_id}/leave-requests")
+def get_employee_leave_requests_endpoint(employee_id: str):
+    """Fetch recent leave requests for the given employee."""
+    reqs = get_employee_leave_requests(employee_id)
+    return reqs
+
 
 
 @router.post("/leave/calculate")
