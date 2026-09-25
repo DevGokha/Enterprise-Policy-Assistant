@@ -140,7 +140,7 @@ def classify_intent_node(state: AgentState) -> Dict[str, Any]:
     if not query:
         return {
             "intent": "general_question",
-            "final_response": "Hello! I am the TechNova Enterprise Policy Assistant. How can I help you today?"
+            "final_response": "Hello! I am the Roboserv 4i Enterprise Policy Assistant. How can I help you today?"
         }
 
     # If already confirmed via API flag
@@ -467,7 +467,7 @@ def general_node(state: AgentState) -> Dict[str, Any]:
     name_str = f", {emp['name']}" if emp else ""
 
     resp = (
-        f"Hello{name_str}! I am your **TechNova Enterprise Policy Assistant**.\n\n"
+        f"Hello{name_str}! I am your **Roboserv 4i Enterprise Policy Assistant**.\n\n"
         f"Here are the things I can help you with:\n"
         f"1. **Company Policy Questions (RAG):** Ask about leaves, WFH guidelines, travel per diems, reimbursements, benefits, or the code of conduct.\n"
         f"2. **Check Leave Balance:** Check your remaining casual, sick, or paid leave days.\n"

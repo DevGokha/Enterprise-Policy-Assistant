@@ -44,7 +44,7 @@ def test_chunk_documents():
     """Verify chunking creates chunks with proper metadata and chunk_id."""
     sample_pages = [
         {
-            "text": "TechNova Casual Leave rules. Employees are entitled to 12 casual leaves per year. Maximum 3 consecutive casual leaves are allowed.",
+            "text": "Roboserv 4i Casual Leave rules. Employees are entitled to 12 casual leaves per year. Maximum 3 consecutive casual leaves are allowed.",
             "source": "leave_policy.pdf",
             "page": 2,
             "department": "HR",

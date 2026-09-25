@@ -1,4 +1,4 @@
-"""Programmatically generate 10 comprehensive, consistent policy PDFs for TechNova Solutions Pvt. Ltd."""
+"""Programmatically generate 10 comprehensive, consistent policy PDFs for Roboserv 4i Private Limited"""
 
 import os
 from pathlib import Path
@@ -37,7 +37,7 @@ class NumberedCanvas(canvas.Canvas):
         self.setFont("Helvetica-Bold", 8)
         self.setFillColor(colors.HexColor("#1E293B"))  # Slate 800
         # Running header
-        self.drawString(54, 750, "TechNova Solutions Pvt. Ltd. — Official Corporate Policy")
+        self.drawString(54, 750, "Roboserv 4i Private Limited — Official Corporate Policy")
         self.setFont("Helvetica", 8)
         self.setFillColor(colors.HexColor("#64748B"))
         self.drawRightString(558, 750, "Internal & Confidential")
@@ -49,7 +49,7 @@ class NumberedCanvas(canvas.Canvas):
         self.line(54, 45, 558, 45)
         self.setFont("Helvetica", 8)
         self.setFillColor(colors.HexColor("#64748B"))
-        self.drawString(54, 32, "Enterprise Policy Assistant Knowledge Base — TechNova Portal")
+        self.drawString(54, 32, "Enterprise Policy Assistant Knowledge Base — Roboserv 4i Portal")
         page_text = f"Page {self._pageNumber} of {page_count}"
         self.drawRightString(558, 32, page_text)
         self.restoreState()
@@ -211,7 +211,7 @@ def build_pdf(filename, pages_content, metadata):
 
 
 def generate_all_documents():
-    print("Generating official fictional policies for TechNova Solutions Pvt. Ltd...")
+    print("Generating official fictional policies for Roboserv 4i Private Limited..")
 
     # 1. leave_policy.pdf (6 pages)
     leave_policy_pages = [
@@ -220,20 +220,20 @@ def generate_all_documents():
                 {
                     "title": "1. Policy Purpose and Objectives",
                     "paragraphs": [
-                        "TechNova Solutions Pvt. Ltd. recognizes the vital importance of personal well-being, work-life integration, and health restoration for all team members. This policy governs the allotment, accrual, approval, and management of employee leaves.",
+                        "Roboserv 4i Private Limited recognizes the vital importance of personal well-being, work-life integration, and health restoration for all team members. This policy governs the allotment, accrual, approval, and management of employee leaves.",
                         "The primary objective is to maintain operational continuity across customer engagements while ensuring fair, equitable, and transparent rest opportunities for employees."
                     ]
                 },
                 {
                     "title": "2. Scope and Annual Leave Cycle",
                     "paragraphs": [
-                        "This policy applies to all full-time regular employees, probationary staff, and fixed-term retainers across all TechNova entities in India.",
-                        "The annual leave calendar at TechNova operates strictly from January 1st to December 31st of each calendar year. All statutory entitlements are credited on a pro-rata basis for employees joining mid-year."
+                        "This policy applies to all full-time regular employees, probationary staff, and fixed-term retainers across all Roboserv 4i entities in India.",
+                        "The annual leave calendar at Roboserv 4i operates strictly from January 1st to December 31st of each calendar year. All statutory entitlements are credited on a pro-rata basis for employees joining mid-year."
                     ],
                     "bullets": [
                         "Full-time confirmed employees receive an annual leave portfolio comprising Casual Leave, Sick Leave, and Paid/Privilege Leave.",
                         "Statutory holidays are governed under the separate Holiday Policy (DOC-HP-2026).",
-                        "All leave applications must be initiated via the TechNova Enterprise Portal or the Enterprise Policy Assistant."
+                        "All leave applications must be initiated via the Roboserv 4i Enterprise Portal or the Enterprise Policy Assistant."
                     ]
                 }
             ]
@@ -262,7 +262,7 @@ def generate_all_documents():
                     "title": "4. Sick Leave (SL) Regulations",
                     "paragraphs": [
                         "Sick leave is granted to enable employees to recuperate from illness, injury, or contagious medical conditions without financial disadvantage.",
-                        "TechNova employees are entitled to 10 days of paid sick leave per calendar year, credited in advance on January 1st."
+                        "Roboserv 4i employees are entitled to 10 days of paid sick leave per calendar year, credited in advance on January 1st."
                     ],
                     "bullets": [
                         "Employees must inform their reporting manager via Slack, email, or Enterprise Assistant before 10:00 AM on the day of absence.",
@@ -297,7 +297,7 @@ def generate_all_documents():
                 {
                     "title": "6. Parental Leave (Maternity & Paternity)",
                     "paragraphs": [
-                        "TechNova is dedicated to supporting new parents during early child bonding and care.",
+                        "Roboserv 4i is dedicated to supporting new parents during early child bonding and care.",
                         "Female employees who have completed at least 80 days of continuous service prior to the expected delivery date are entitled to 26 weeks (182 calendar days) of fully paid maternity leave for up to two surviving children.",
                         "In case of adoption or surrogacy of an infant below 3 months, 12 weeks of paid maternity leave is granted."
                     ],
@@ -317,7 +317,7 @@ def generate_all_documents():
                     "title": "7. Special Leaves & Application Workflow",
                     "subtitle": "Bereavement Leave & Compensatory Off",
                     "paragraphs": [
-                        "TechNova provides up to 5 consecutive working days of paid bereavement leave in the unfortunate event of the demise of an immediate family member (parents, spouse, children, siblings, or parents-in-law).",
+                        "Roboserv 4i provides up to 5 consecutive working days of paid bereavement leave in the unfortunate event of the demise of an immediate family member (parents, spouse, children, siblings, or parents-in-law).",
                         "Compensatory Off (Comp-off) is granted when an employee works on a scheduled weekend or declared national holiday with prior written approval from the Department Head. Comp-offs must be utilized within 60 days of accrual, after which they lapse."
                     ],
                     "subtitle": "Working Days Calculation and Safety Verification",
@@ -337,7 +337,7 @@ def generate_all_documents():
         "effective_date": "January 1, 2026",
         "department": "Human Resources",
         "owner": "Chief People Officer",
-        "applicability": "All TechNova Employees"
+        "applicability": "All Roboserv 4i Employees"
     })
 
     # 2. wfh_policy.pdf (4 pages)
@@ -347,8 +347,8 @@ def generate_all_documents():
                 {
                     "title": "1. Hybrid Work Model Overview",
                     "paragraphs": [
-                        "TechNova Solutions Pvt. Ltd. operates under a progressive hybrid working framework designed to combine in-person collaboration with remote flexibility.",
-                        "Under the standard policy, regular full-time employees in eligible roles may Work From Home (WFH) for up to 2 days per business week, with the remaining 3 days spent in office at their designated TechNova development facility."
+                        "Roboserv 4i Private Limited operates under a progressive hybrid working framework designed to combine in-person collaboration with remote flexibility.",
+                        "Under the standard policy, regular full-time employees in eligible roles may Work From Home (WFH) for up to 2 days per business week, with the remaining 3 days spent in office at their designated Roboserv 4i development facility."
                     ],
                     "bullets": [
                         "WFH days must be aligned with project sprint schedules and approved by the immediate project manager.",
@@ -363,7 +363,7 @@ def generate_all_documents():
                 {
                     "title": "2. Core Working Hours & Availability",
                     "paragraphs": [
-                        "To foster cohesive communication across cross-functional teams, TechNova defines core working hours.",
+                        "To foster cohesive communication across cross-functional teams, Roboserv 4i defines core working hours.",
                         "All employees, whether working on-site or remotely, must remain accessible and actively online during core business hours: 10:00 AM to 5:00 PM IST."
                     ],
                     "bullets": [
@@ -380,7 +380,7 @@ def generate_all_documents():
                 {
                     "title": "3. Home Office Equipment & Broadband Allowance",
                     "paragraphs": [
-                        "TechNova equips every employee with an enterprise-grade laptop configured with endpoint protection and required developer tools.",
+                        "Roboserv 4i equips every employee with an enterprise-grade laptop configured with endpoint protection and required developer tools.",
                         "Full-time confirmed employees are eligible for a one-time remote workstation setup allowance of up to INR 15,000 for purchasing ergonomic chairs, external monitors, keyboards, or UPS power backups."
                     ],
                     "bullets": [
@@ -398,14 +398,14 @@ def generate_all_documents():
                     "title": "4. Remote Security & Compliance",
                     "paragraphs": [
                         "Information security is paramount when accessing corporate repositories, client datasets, and proprietary software from outside the corporate perimeter.",
-                        "All remote connections must be routed through the TechNova GlobalProtect Virtual Private Network (VPN) with multi-factor authentication (MFA)."
+                        "All remote connections must be routed through the Roboserv 4i GlobalProtect Virtual Private Network (VPN) with multi-factor authentication (MFA)."
                     ],
                     "bullets": [
                         "Operating from public Wi-Fi networks (cafes, airports) is strictly forbidden without active VPN tunnel encryption.",
                         "Screens must automatically lock after 2 minutes of inactivity.",
                         "Company laptops must not be shared with family members, friends, or third parties."
                     ],
-                    "callout": "Mandatory usage of TechNova GlobalProtect VPN. Auto-screen lock is enforced at 2 minutes of idle time."
+                    "callout": "Mandatory usage of Roboserv 4i GlobalProtect VPN. Auto-screen lock is enforced at 2 minutes of idle time."
                 }
             ]
         }
@@ -427,7 +427,7 @@ def generate_all_documents():
                 {
                     "title": "1. Standard Working Hours",
                     "paragraphs": [
-                        "TechNova Solutions maintains a 5-day working week, Monday through Friday, comprising 40 regular hours per week.",
+                        "Roboserv 4i Private Limited maintains a 5-day working week, Monday through Friday, comprising 40 regular hours per week.",
                         "Standard office hours are from 9:30 AM to 6:30 PM IST, including an aggregate 1-hour break for lunch and tea."
                     ],
                     "bullets": [
@@ -443,7 +443,7 @@ def generate_all_documents():
                     "title": "2. Attendance Recording & Grace Period",
                     "paragraphs": [
                         "Attendance is captured digitally via automated smart-card badge swipes at facility turnstiles or biometric/portal login timestamps.",
-                        "TechNova provides a 30-minute grace period for morning logins, permitting arrival up to 10:00 AM IST up to 3 times per calendar month without deduction."
+                        "Roboserv 4i provides a 30-minute grace period for morning logins, permitting arrival up to 10:00 AM IST up to 3 times per calendar month without deduction."
                     ],
                     "bullets": [
                         "Logins recorded after 10:00 AM without prior managerial notice are flagged as tardy.",
@@ -471,7 +471,7 @@ def generate_all_documents():
                 {
                     "title": "4. Overtime and Compensatory Off",
                     "paragraphs": [
-                        "While TechNova discourages habitual overtime, project delivery imperatives or emergency production support may occasionally require extra hours.",
+                        "While Roboserv 4i discourages habitual overtime, project delivery imperatives or emergency production support may occasionally require extra hours.",
                         "Any work on weekends or declared company holidays requires prior written authorization from the Department Head.",
                         "Employees working on holidays receive 1 full day of Compensatory Off (Comp-off), which must be claimed within 60 days."
                     ]
@@ -486,7 +486,7 @@ def generate_all_documents():
         "effective_date": "January 1, 2026",
         "department": "Human Resources",
         "owner": "Director of Talent Operations",
-        "applicability": "All TechNova Employees"
+        "applicability": "All Roboserv 4i Employees"
     })
 
     # 4. travel_policy.pdf (4 pages)
@@ -496,8 +496,8 @@ def generate_all_documents():
                 {
                     "title": "1. Travel Authorization & Booking Lead Times",
                     "paragraphs": [
-                        "This policy establishes guidelines for domestic and international travel undertaken on behalf of TechNova Solutions Pvt. Ltd.",
-                        "All business travel must be formally initiated via the TechNova Travel Desk and approved by the respective Delivery Head or Vice President."
+                        "This policy establishes guidelines for domestic and international travel undertaken on behalf of Roboserv 4i Private Limited",
+                        "All business travel must be formally initiated via the Roboserv 4i Travel Desk and approved by the respective Delivery Head or Vice President."
                     ],
                     "bullets": [
                         "Domestic travel requests must be submitted at least 14 days prior to the departure date to optimize airline and hotel booking rates.",
@@ -527,7 +527,7 @@ def generate_all_documents():
                 {
                     "title": "3. Lodging & Hotel Tariff Limits",
                     "paragraphs": [
-                        "TechNova partners with corporate hotel chains to provide safe, hygienic, and convenient lodging.",
+                        "Roboserv 4i partners with corporate hotel chains to provide safe, hygienic, and convenient lodging.",
                         "The nightly room tariff caps (exclusive of statutory taxes) are defined by city tiers:"
                     ],
                     "bullets": [
@@ -571,8 +571,8 @@ def generate_all_documents():
                 {
                     "title": "1. Reimbursement Principles & Submission Timelines",
                     "paragraphs": [
-                        "TechNova reimburses legitimate, necessary, and reasonable business expenses incurred in the performance of corporate duties.",
-                        "All expense claims must be submitted via the TechNova Finance Portal within 30 days of the expense incurring.",
+                        "Roboserv 4i reimburses legitimate, necessary, and reasonable business expenses incurred in the performance of corporate duties.",
+                        "All expense claims must be submitted via the Roboserv 4i Finance Portal within 30 days of the expense incurring.",
                         "Claims submitted after 45 days will be deemed void unless exceptional dispensation is granted by the CFO."
                     ],
                     "bullets": [
@@ -588,7 +588,7 @@ def generate_all_documents():
                 {
                     "title": "2. Broadband & Mobile Phone Reimbursement",
                     "paragraphs": [
-                        "To facilitate uninterrupted connectivity, TechNova provides monthly telecommunications reimbursement.",
+                        "To facilitate uninterrupted connectivity, Roboserv 4i provides monthly telecommunications reimbursement.",
                         "Broadband Reimbursement: Full-time employees working in hybrid or remote modes are entitled to claim broadband internet expenses up to INR 1,500 per month.",
                         "Mobile Phone Plan: Designated project leads, managers, on-call support engineers, and client engagement managers may claim postpaid mobile expenses up to INR 800 per month."
                     ],
@@ -601,7 +601,7 @@ def generate_all_documents():
                 {
                     "title": "3. Professional Certification & Learning Allowance",
                     "paragraphs": [
-                        "Continuous learning and technical mastery are core cultural pillars at TechNova.",
+                        "Continuous learning and technical mastery are core cultural pillars at Roboserv 4i.",
                         "Each confirmed full-time employee is allotted an annual professional certification budget of up to INR 50,000 per financial year.",
                         "Pre-approved technical credentials include certifications in Google Cloud Platform (GCP), AWS, Azure, LangChain, Machine Learning, and Project Management (PMP)."
                     ],
@@ -618,7 +618,7 @@ def generate_all_documents():
                 {
                     "title": "4. Health & Wellness Reimbursement",
                     "paragraphs": [
-                        "TechNova champions holistic health and wellness for employees.",
+                        "Roboserv 4i champions holistic health and wellness for employees.",
                         "Employees are eligible for an annual health & wellness reimbursement of up to INR 12,000 per calendar year.",
                         "Eligible expenses include memberships for gyms, yoga studios, swimming pools, sports clubs, or preventive annual health checkups for the employee."
                     ],
@@ -644,7 +644,7 @@ def generate_all_documents():
                 {
                     "title": "1. Group Medical Insurance (Mediclaim)",
                     "paragraphs": [
-                        "TechNova provides comprehensive Group Health Insurance coverage to safeguard employees and their families against medical exigencies.",
+                        "Roboserv 4i provides comprehensive Group Health Insurance coverage to safeguard employees and their families against medical exigencies.",
                         "The company provides a base floater coverage of INR 500,000 per annum covering the employee, legal spouse, and up to 2 dependent children.",
                         "Coverage includes cashless hospitalization across 8,000+ accredited network hospitals nationwide, pre-hospitalization expenses up to 30 days, and post-hospitalization expenses up to 60 days."
                     ],
@@ -661,7 +661,7 @@ def generate_all_documents():
                 {
                     "title": "2. Term Life Insurance & Personal Accident Cover",
                     "paragraphs": [
-                        "To provide financial security to employees' loved ones, TechNova sponsors 100% of the premium for Group Term Life Insurance.",
+                        "To provide financial security to employees' loved ones, Roboserv 4i sponsors 100% of the premium for Group Term Life Insurance.",
                         "The term life insurance policy provides a lump-sum death benefit equal to 3 times (3x) the employee's annual Cost-to-Company (CTC).",
                         "In addition, Group Personal Accident insurance provides financial compensation up to INR 2,500,000 in the event of permanent or partial disability resulting from an accident."
                     ],
@@ -674,7 +674,7 @@ def generate_all_documents():
                 {
                     "title": "3. Retirement & Long-Term Financial Benefits",
                     "paragraphs": [
-                        "TechNova complies fully with all statutory retirement security mandates in India.",
+                        "Roboserv 4i complies fully with all statutory retirement security mandates in India.",
                         "Provident Fund (PF): 12% matching contribution under the Employees' Provident Fund Organization (EPFO) regulations.",
                         "Gratuity: Payable under the Payment of Gratuity Act, 1972, upon completion of at least 5 continuous years of service, calculated as 15 days of last drawn basic salary for each completed year of service."
                     ],
@@ -690,11 +690,11 @@ def generate_all_documents():
                 {
                     "title": "4. Employee Assistance Program (EAP) & Mental Health",
                     "paragraphs": [
-                        "TechNova has partnered with leading mental healthcare providers to offer a 24x7 confidential Employee Assistance Program (EAP).",
+                        "Roboserv 4i has partnered with leading mental healthcare providers to offer a 24x7 confidential Employee Assistance Program (EAP).",
                         "Employees and their immediate family members can access up to 6 free one-on-one sessions per year with licensed clinical psychologists, counsellors, and financial wellbeing consultants."
                     ],
                     "bullets": [
-                        "All discussions are strictly confidential between the employee and the provider; no records are shared with TechNova HR or management.",
+                        "All discussions are strictly confidential between the employee and the provider; no records are shared with Roboserv 4i HR or management.",
                         "Assistance spans work stress, grief, anxiety, relationship counseling, and parenting guidance."
                     ]
                 }
@@ -705,7 +705,7 @@ def generate_all_documents():
                 {
                     "title": "5. Annual Performance Bonus & Rewards Cycle",
                     "paragraphs": [
-                        "TechNova recognizes and rewards high performance, innovation, and leadership.",
+                        "Roboserv 4i recognizes and rewards high performance, innovation, and leadership.",
                         "Annual performance appraisals occur during the fourth quarter (February-March), with revised compensation and annual bonus payouts disbursed in the April payroll.",
                         "Bonus pools are determined based on company financial targets (60% weightage) and individual goal achievement (40% weightage)."
                     ],
@@ -734,7 +734,7 @@ def generate_all_documents():
                 {
                     "title": "1. Corporate Values & Workplace Principles",
                     "paragraphs": [
-                        "At TechNova Solutions, our mission is built upon five pillars: Integrity, Innovation, Respect, Transparency, and Customer Success.",
+                        "At Roboserv 4i Private Limited, our mission is built upon five pillars: Integrity, Innovation, Respect, Transparency, and Customer Success.",
                         "We are committed to providing an inclusive, safe, and professional work environment free from discrimination, harassment, and bias based on caste, religion, gender, sexual orientation, disability, or marital status."
                     ],
                     "bullets": [
@@ -749,11 +749,11 @@ def generate_all_documents():
                 {
                     "title": "2. Prevention of Sexual Harassment (POSH)",
                     "paragraphs": [
-                        "TechNova enforces zero tolerance for sexual harassment under the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013.",
+                        "Roboserv 4i enforces zero tolerance for sexual harassment under the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013.",
                         "An Internal Complaints Committee (ICC) headed by an external female presiding officer is constituted to investigate grievances with absolute confidentiality.",
                         "Inquiries are conducted and completed within a maximum timeframe of 90 days from the filing of the complaint."
                     ],
-                    "callout": "TechNova maintains zero tolerance for sexual harassment. POSH inquiries are strictly concluded within 90 days."
+                    "callout": "Roboserv 4i maintains zero tolerance for sexual harassment. POSH inquiries are strictly concluded within 90 days."
                 }
             ]
         },
@@ -762,7 +762,7 @@ def generate_all_documents():
                 {
                     "title": "3. Conflict of Interest & Moonlighting Policy",
                     "paragraphs": [
-                        "TechNova employees must devote their full business time, attention, and technical skills to the business of the company.",
+                        "Roboserv 4i employees must devote their full business time, attention, and technical skills to the business of the company.",
                         "Moonlighting (dual employment, commercial freelancing, running external commercial software ventures, or consulting for third-party commercial entities) is strictly prohibited without prior written approval from the Chief People Officer.",
                         "Passive personal investments in publicly traded equity or mutual funds are permitted provided they do not conflict with client confidentiality."
                     ],
@@ -775,7 +775,7 @@ def generate_all_documents():
                 {
                     "title": "4. Anti-Bribery, Gifts & Corporate Hospitality",
                     "paragraphs": [
-                        "TechNova conducts business ethically and in full compliance with all domestic and international anti-corruption laws.",
+                        "Roboserv 4i conducts business ethically and in full compliance with all domestic and international anti-corruption laws.",
                         "Employees must never accept or solicit personal gifts, lavish hospitality, gift cards, or cash from vendors, clients, or partners.",
                         "Modest customary promotional items (pens, notepads, diaries, calendars) with an aggregate market value not exceeding INR 2,000 are permissible during festive seasons."
                     ],
@@ -788,11 +788,11 @@ def generate_all_documents():
                 {
                     "title": "5. Whistleblower Protection Policy",
                     "paragraphs": [
-                        "TechNova provides a protected, confidential channel for employees to report unlawful conduct, fraud, safety violations, or unethical behavior.",
-                        "Reports may be submitted via email to ethics@technova.com or to the Chairman of the Audit Committee.",
-                        "TechNova strictly forbids any form of retaliation against an employee who reports a suspected violation in good faith."
+                        "Roboserv 4i provides a protected, confidential channel for employees to report unlawful conduct, fraud, safety violations, or unethical behavior.",
+                        "Reports may be submitted via email to ethics@roboserv4i.com or to the Chairman of the Audit Committee.",
+                        "Roboserv 4i strictly forbids any form of retaliation against an employee who reports a suspected violation in good faith."
                     ],
-                    "callout": "Confidential whistleblower channel: ethics@technova.com. Retaliation against whistleblowers is grounds for immediate termination."
+                    "callout": "Confidential whistleblower channel: ethics@roboserv4i.com. Retaliation against whistleblowers is grounds for immediate termination."
                 }
             ]
         }
@@ -814,7 +814,7 @@ def generate_all_documents():
                 {
                     "title": "1. Password & Access Control Standards",
                     "paragraphs": [
-                        "Information security is the collective responsibility of every employee at TechNova Solutions.",
+                        "Information security is the collective responsibility of every employee at Roboserv 4i Private Limited.",
                         "All enterprise passwords must be at least 12 characters in length, containing uppercase letters, lowercase letters, numbers, and special symbols.",
                         "Passwords must be updated every 90 days. Reusing the previous 5 passwords is prohibited.",
                         "Multi-Factor Authentication (MFA) via enterprise authenticators (Duo or Google Authenticator) is mandatory across all cloud and on-premise systems."
@@ -846,7 +846,7 @@ def generate_all_documents():
                 {
                     "title": "3. Clean Desk & Removable Storage Policy",
                     "paragraphs": [
-                        "To prevent physical data exfiltration and visual snooping, TechNova enforces a strict Clean Desk and Clean Screen rule.",
+                        "To prevent physical data exfiltration and visual snooping, Roboserv 4i enforces a strict Clean Desk and Clean Screen rule.",
                         "Employees must lock their screens (Win+L / Cmd+Ctrl+Q) whenever leaving their workstation. Automatic lock activates after 2 minutes of idle time.",
                         "External USB flash drives, memory sticks, and portable external hard disks are blocked by endpoint device control policies. Transferring data via personal cloud storage (Google Drive, Dropbox) is blocked."
                     ],
@@ -860,10 +860,10 @@ def generate_all_documents():
                     "title": "4. Security Incident Reporting & Phishing",
                     "paragraphs": [
                         "Early detection and reporting are critical to mitigating cyber threats and safeguarding client data.",
-                        "Any suspected phishing email, anomalous system behavior, lost badge, or stolen laptop must be reported immediately to security@technova.com within 60 minutes of discovery.",
+                        "Any suspected phishing email, anomalous system behavior, lost badge, or stolen laptop must be reported immediately to security@roboserv4i.com within 60 minutes of discovery.",
                         "The InfoSec Incident Response Team operates 24x7 to isolate endpoints and prevent lateral threat movement."
                     ],
-                    "callout": "All security incidents and lost hardware must be reported to security@technova.com within 60 minutes."
+                    "callout": "All security incidents and lost hardware must be reported to security@roboserv4i.com within 60 minutes."
                 }
             ]
         }
@@ -885,7 +885,7 @@ def generate_all_documents():
                 {
                     "title": "1. Corporate Holiday Structure",
                     "paragraphs": [
-                        "TechNova Solutions Pvt. Ltd. publishes an annual official holiday schedule for each calendar year.",
+                        "Roboserv 4i Private Limited publishes an annual official holiday schedule for each calendar year.",
                         "The holiday entitlement consists of 10 Mandatory Public Holidays and 2 Optional / Restricted Holidays (RH) per year, totaling 12 official paid holidays."
                     ],
                     "bullets": [
@@ -900,7 +900,7 @@ def generate_all_documents():
                 {
                     "title": "2. Annual Mandatory Holidays (10 Days)",
                     "paragraphs": [
-                        "TechNova observes the following 10 mandatory public holidays in calendar year 2026:"
+                        "Roboserv 4i observes the following 10 mandatory public holidays in calendar year 2026:"
                     ],
                     "bullets": [
                         "1. New Year's Day — January 1, 2026",
@@ -914,7 +914,7 @@ def generate_all_documents():
                         "9. Eid-ul-Fitr — April 10, 2026 (subject to moon sighting)",
                         "10. Christmas Day — December 25, 2026"
                     ],
-                    "callout": "TechNova observes 10 mandatory paid public holidays and 2 optional restricted holidays per year."
+                    "callout": "Roboserv 4i observes 10 mandatory paid public holidays and 2 optional restricted holidays per year."
                 }
             ]
         },
@@ -939,7 +939,7 @@ def generate_all_documents():
         "effective_date": "January 1, 2026",
         "department": "Human Resources",
         "owner": "Talent Operations Lead",
-        "applicability": "All TechNova Employees"
+        "applicability": "All Roboserv 4i Employees"
     })
 
     # 10. hr_handbook.pdf (5 pages)
@@ -947,10 +947,10 @@ def generate_all_documents():
         {
             "sections": [
                 {
-                    "title": "1. Welcome & About TechNova Solutions",
+                    "title": "1. Welcome & About Roboserv 4i Private Limited",
                     "paragraphs": [
-                        "Welcome to TechNova Solutions Pvt. Ltd.! Founded in 2018, TechNova is an industry-leading software and artificial intelligence enterprise empowering global clients with generative AI, cloud transformation, and intelligent automation solutions.",
-                        "With delivery headquarters in Bengaluru and regional centers in Pune and Hyderabad, TechNova is home to over 1,500 dedicated technologists, data scientists, and business consultants."
+                        "Welcome to Roboserv 4i Private Limited! Founded in 2018, Roboserv 4i is an industry-leading software and artificial intelligence enterprise empowering global clients with generative AI, cloud transformation, and intelligent automation solutions.",
+                        "With delivery headquarters in Bengaluru and regional centers in Pune and Hyderabad, Roboserv 4i is home to over 1,500 dedicated technologists, data scientists, and business consultants."
                     ],
                     "bullets": [
                         "This handbook serves as the overarching guide to employment terms, company culture, and career progression.",
@@ -993,7 +993,7 @@ def generate_all_documents():
                 {
                     "title": "4. Performance Management & OKR System",
                     "paragraphs": [
-                        "TechNova follows an agile Objectives and Key Results (OKR) framework aligned quarterly.",
+                        "Roboserv 4i follows an agile Objectives and Key Results (OKR) framework aligned quarterly.",
                         "Performance ratings are evaluated annually on a 5-point scale: 1 (Unsatisfactory), 2 (Needs Improvement), 3 (Meets Expectations), 4 (Exceeds Expectations), 5 (Outstanding).",
                         "Ratings directly determine annual merit increments, promotion eligibility, and performance bonus allocation."
                     ]
@@ -1005,7 +1005,7 @@ def generate_all_documents():
                 {
                     "title": "5. Employee Grievance Redressal Matrix",
                     "paragraphs": [
-                        "TechNova promotes an open-door policy where constructive concerns are addressed swiftly and fairly.",
+                        "Roboserv 4i promotes an open-door policy where constructive concerns are addressed swiftly and fairly.",
                         "Employees may escalate unresolved grievances through our structured 3-tier escalation matrix:",
                         "• Tier 1: Immediate Project Manager or assigned HR Business Partner (HRBP). Response within 3 working days.",
                         "• Tier 2: Department Head or Head of Human Resources. Response within 5 working days.",
@@ -1023,7 +1023,7 @@ def generate_all_documents():
         "effective_date": "January 1, 2026",
         "department": "Human Resources",
         "owner": "Chief People Officer",
-        "applicability": "All TechNova Personnel"
+        "applicability": "All Roboserv 4i Personnel"
     })
 
     print("All 10 policy PDF documents generated successfully in data/documents/")

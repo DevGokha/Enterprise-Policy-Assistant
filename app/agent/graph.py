@@ -1,4 +1,4 @@
-"""LangGraph workflow definition for TechNova Enterprise Policy Assistant."""
+"""LangGraph workflow definition for Roboserv 4i Enterprise Policy Assistant."""
 
 import logging
 from typing import Dict, Any, Optional

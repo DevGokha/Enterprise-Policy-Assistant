@@ -1,4 +1,4 @@
-"""Main FastAPI application for TechNova Enterprise Policy Assistant."""
+"""Main FastAPI application for Roboserv 4i Enterprise Policy Assistant."""
 
 import os
 import logging
@@ -51,7 +51,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(
-    title="TechNova Enterprise Policy Assistant API",
+    title="Roboserv 4i Enterprise Policy Assistant API",
     description="Enterprise AI Assistant providing RAG policy knowledge retrieval and Agentic HR actions with safety guardrails.",
     version="1.0.0",
     lifespan=lifespan
@@ -74,8 +74,8 @@ app.include_router(api_router)
 def root():
     """Welcome endpoint providing service metadata."""
     return {
-        "service": "TechNova Enterprise Policy Assistant",
-        "organization": "TechNova Solutions Pvt. Ltd.",
+        "service": "Roboserv 4i Enterprise Policy Assistant",
+        "organization": "Roboserv 4i Private Limited",
         "status": "online",
         "version": "1.0.0",
         "documentation": "/docs",

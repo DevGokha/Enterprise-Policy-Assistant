@@ -1,4 +1,4 @@
-# 🏢 TechNova Enterprise Policy Assistant
+# 🏢 Roboserv 4i Enterprise Policy Assistant
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.110+-009688?style=flat&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
@@ -7,7 +7,7 @@
 [![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-FF4B4B?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-An enterprise-grade, portfolio-ready AI Employee Assistant built for **TechNova Solutions Pvt. Ltd.** that combines **Retrieval-Augmented Generation (RAG)** for policy knowledge questions with an **Agentic AI workflow (LangGraph)** for automated HR tasks with **human-in-the-loop confirmation safety**.
+An enterprise-grade, portfolio-ready AI Employee Assistant built for **Roboserv 4i Private Limited** that combines **Retrieval-Augmented Generation (RAG)** for policy knowledge questions with an **Agentic AI workflow (LangGraph)** for automated HR tasks with **human-in-the-loop confirmation safety**.
 
 Designed specifically for **TCS NQT / AI-ML / GenAI Specialist interview portfolios**, showcasing clean software design, production guardrails, and real retrieval without mockups.
 
@@ -37,7 +37,7 @@ In modern enterprises, HR departments receive thousands of repetitive inquiries 
 
 ### The Solution
 The **Enterprise Policy Assistant** provides:
-1. **Instant, Grounded Answers**: Pulls exact clauses from 10 official TechNova policy documents and cites the **document name and page number**.
+1. **Instant, Grounded Answers**: Pulls exact clauses from 10 official Roboserv 4i policy documents and cites the **document name and page number**.
 2. **Zero Hallucination Guarantee**: Strictly declines to answer if the clause does not exist in company records.
 3. **Agentic Action Execution**: Resolves leave balances, computes working days (excluding weekends), and checks balance eligibility.
 4. **State-Change Confirmation Safety**: Prevents unauthorized balance deductions by enforcing explicit user approval before touching SQLite.
@@ -46,7 +46,7 @@ The **Enterprise Policy Assistant** provides:
 
 ## 2. Key Features
 
-- 🔍 **Real RAG Pipeline**: Extracts, chunks, and indexes 10 authentic TechNova policy PDFs using `sentence-transformers/all-MiniLM-L6-v2` and FAISS.
+- 🔍 **Real RAG Pipeline**: Extracts, chunks, and indexes 10 authentic Roboserv 4i policy PDFs using `sentence-transformers/all-MiniLM-L6-v2` and FAISS.
 - 📄 **Precise Citations**: Every policy response displays the source document and page number (e.g. `leave_policy.pdf, Page 3`).
 - 🤖 **Single-Agent LangGraph Workflow**: Controlled state machine that routes queries between knowledge retrieval and HR action tools without unnecessary multi-agent complexity.
 - 🛡️ **Confirmation Guardrails**: State-changing operations (such as submitting leave requests and deducting leave balances) require explicit user confirmation.
@@ -147,7 +147,7 @@ enterprise-policy-assistant/
 │       └── chat.py                 # /api/chat, /api/leave/* endpoints
 │
 ├── data/
-│   ├── documents/                  # 10 official TechNova policy PDFs
+│   ├── documents/                  # 10 official Roboserv 4i policy PDFs
 │   ├── vectorstore/                # Generated FAISS index & metadata
 │   ├── enterprise.db               # SQLite database
 │   └── generate_documents.py       # Programmatic PDF generation script
@@ -207,7 +207,7 @@ EMBEDDING_MODEL_NAME=sentence-transformers/all-MiniLM-L6-v2
 ## 8. Execution Commands
 
 ### Step 1: Generate Policy PDFs
-Generate 10 official fictional policy documents for TechNova:
+Generate 10 official fictional policy documents for Roboserv 4i:
 ```bash
 python -m data.generate_documents
 ```
@@ -369,4 +369,4 @@ curl -X POST "http://localhost:8000/api/index"
 
 ---
 
-**Developed with ❤️ for TechNova Solutions Pvt. Ltd.**
+**Developed with ❤️ for Roboserv 4i Private Limited**

@@ -11,7 +11,7 @@ SAMPLE_EMPLOYEES = [
     {
         "employee_id": "EMP001",
         "name": "Dev Kumar",
-        "email": "dev@technova.com",
+        "email": "dev@roboserv4i.com",
         "department": "AI/ML",
         "manager": "Rahul Sharma",
         "balances": {"casual_leave": 8, "sick_leave": 7, "paid_leave": 15}
@@ -19,7 +19,7 @@ SAMPLE_EMPLOYEES = [
     {
         "employee_id": "EMP002",
         "name": "Priya Sharma",
-        "email": "priya@technova.com",
+        "email": "priya@roboserv4i.com",
         "department": "Cloud Architecture",
         "manager": "Anita Desai",
         "balances": {"casual_leave": 10, "sick_leave": 9, "paid_leave": 18}
@@ -27,7 +27,7 @@ SAMPLE_EMPLOYEES = [
     {
         "employee_id": "EMP003",
         "name": "Rohan Verma",
-        "email": "rohan@technova.com",
+        "email": "rohan@roboserv4i.com",
         "department": "Frontend Engineering",
         "manager": "Rahul Sharma",
         "balances": {"casual_leave": 4, "sick_leave": 5, "paid_leave": 12}
@@ -35,7 +35,7 @@ SAMPLE_EMPLOYEES = [
     {
         "employee_id": "EMP004",
         "name": "Ananya Iyer",
-        "email": "ananya@technova.com",
+        "email": "ananya@roboserv4i.com",
         "department": "Human Resources",
         "manager": "Vikram Malhotra",
         "balances": {"casual_leave": 11, "sick_leave": 8, "paid_leave": 16}
@@ -43,7 +43,7 @@ SAMPLE_EMPLOYEES = [
     {
         "employee_id": "EMP005",
         "name": "Vikram Malhotra",
-        "email": "vikram@technova.com",
+        "email": "vikram@roboserv4i.com",
         "department": "Human Resources",
         "manager": "Executive Office",
         "balances": {"casual_leave": 12, "sick_leave": 10, "paid_leave": 18}

@@ -1,4 +1,4 @@
-"""Streamlit Web Dashboard for TechNova Enterprise Policy Assistant."""
+"""Streamlit Web Dashboard for Roboserv 4i Enterprise Policy Assistant."""
 
 import os
 import requests
@@ -10,7 +10,7 @@ load_dotenv()
 
 # Page configuration
 st.set_page_config(
-    page_title="TechNova Enterprise Policy Assistant",
+    page_title="Roboserv 4i Enterprise Policy Assistant",
     page_icon="🏢",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -147,7 +147,7 @@ if "messages" not in st.session_state:
         {
             "role": "assistant",
             "content": (
-                "Hello! I am your **TechNova Enterprise Policy Assistant**.\n\n"
+                "Hello! I am your **Roboserv 4i Enterprise Policy Assistant**.\n\n"
                 "I can help you answer company policy questions with exact source citations, "
                 "check your leave balances, and submit leave requests safely with your confirmation."
             ),
@@ -165,7 +165,7 @@ if "pending_confirmation" not in st.session_state:
 # ---------------------------------------------------------
 with st.sidebar:
     st.image("https://img.icons8.com/color/96/briefcase--v1.png", width=64)
-    st.title("TechNova Portal")
+    st.title("Roboserv 4i Portal")
     st.caption("Enterprise HRMS & Policy Suite")
 
     st.markdown("---")
@@ -229,7 +229,7 @@ with st.sidebar:
 # MAIN PAGE: Chat Interface
 # ---------------------------------------------------------
 
-st.markdown('<div class="main-title">TechNova Enterprise Policy Assistant</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-title">Roboserv 4i Enterprise Policy Assistant</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-title">Grounded RAG Policy Q&A + Agentic HR Workflow with Confirmation Safety</div>', unsafe_allow_html=True)
 
 # Quick Prompt Suggestions

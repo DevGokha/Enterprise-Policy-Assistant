@@ -1,6 +1,6 @@
 # Architecture & Technical Design — Enterprise Policy Assistant
 
-This document outlines the architectural blueprint, data flows, and design decisions for the **TechNova Enterprise Policy Assistant**. This reference is designed for technical deep-dives and engineering interviews (e.g., TCS NQT / AI-ML / GenAI Specialist interviews).
+This document outlines the architectural blueprint, data flows, and design decisions for the **Roboserv 4i Enterprise Policy Assistant**. This reference is designed for technical deep-dives and engineering interviews (e.g., TCS NQT / AI-ML / GenAI Specialist interviews).
 
 ---
 
@@ -10,7 +10,7 @@ The Enterprise Policy Assistant combines **Retrieval-Augmented Generation (RAG)*
 
 ```mermaid
 graph TD
-    User([👤 TechNova Employee]) -->|HTTP / WebSocket| UI[🖥️ Streamlit Web Dashboard]
+    User([👤 Roboserv 4i Employee]) -->|HTTP / WebSocket| UI[🖥️ Streamlit Web Dashboard]
     UI -->|REST JSON API| API[⚡ FastAPI Application Gateway]
     
     subgraph Core AI & Workflow Engine
@@ -59,9 +59,9 @@ graph TD
 
 In modern Generative AI engineering, a common question is distinguishing between **RAG**, **GenAI**, and **Agentic AI**. This project demonstrates all three in harmony:
 
-| Concept | Core Responsibility | Implementation in TechNova Assistant |
+| Concept | Core Responsibility | Implementation in Roboserv 4i Assistant |
 | :--- | :--- | :--- |
-| **RAG** (Retrieval-Augmented Generation) | **Retrieves external domain knowledge** that the model was never trained on, preventing factual hallucination. | Extracts, chunks, embeds 10 TechNova policy PDFs into FAISS; retrieves exact policy snippets with document and page numbers. |
+| **RAG** (Retrieval-Augmented Generation) | **Retrieves external domain knowledge** that the model was never trained on, preventing factual hallucination. | Extracts, chunks, embeds 10 Roboserv 4i policy PDFs into FAISS; retrieves exact policy snippets with document and page numbers. |
 | **GenAI** (Generative AI) | **Synthesizes natural-language answers** grounded in provided context. | Synthesizes professional, readable answers grounded strictly on retrieved policy excerpts via Groq API. |
 | **Agentic AI** | **Autonomously reasons, plans, and selects tools** to accomplish multi-step goals with stateful execution. | The LangGraph state machine determines intent, checks employee eligibility, calculates working days, demands confirmation, and updates SQLite. |
 

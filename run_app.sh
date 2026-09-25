@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Script to run TechNova Enterprise Policy Assistant (FastAPI + Streamlit)
+# Script to run Roboserv 4i Enterprise Policy Assistant (FastAPI + Streamlit)
 set -e
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
@@ -13,7 +13,7 @@ fi
 export PYTHONPATH=.
 
 echo "============================================================"
-echo "Starting TechNova Enterprise Policy Assistant Services"
+echo "Starting Roboserv 4i Enterprise Policy Assistant Services"
 echo "============================================================"
 
 # Ensure database is seeded and documents are indexed
