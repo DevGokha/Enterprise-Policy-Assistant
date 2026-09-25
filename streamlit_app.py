@@ -64,6 +64,17 @@ st.markdown("""
         text-align: center;
         margin-bottom: 8px;
     }
+    .lang-badge {
+        display: inline-block;
+        background-color: #EEF2FF;
+        color: #4F46E5;
+        border: 1px solid #C7D2FE;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.76rem;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -141,16 +152,39 @@ def call_chat_api(emp_id: str, message: str, confirmed: bool = False, extra_stat
         }
 
 
+def call_translate_api(text: str, target_lang: str) -> str:
+    """Translate text to Hindi or Marathi via backend API with local fallback."""
+    if not text or target_lang in ("en", "english"):
+        return text
+    try:
+        r = requests.post(f"{API_BASE_URL}/api/translate", json={"text": text, "target_lang": target_lang}, timeout=8)
+        if r.status_code == 200:
+            return r.json().get("translated_text", text)
+    except Exception:
+        pass
+
+    # Direct fallback
+    try:
+        from app.agent.llm import translate_text
+        return translate_text(text, target_lang)
+    except Exception:
+        return text
+
+
 # Initialize Session State
 if "messages" not in st.session_state:
+    init_msg = (
+        "Hello! I am your **Roboserv 4i Enterprise Policy Assistant**.\n\n"
+        "I can help you answer company policy questions with exact source citations, "
+        "check your leave balances, and submit leave requests safely with your confirmation."
+    )
     st.session_state.messages = [
         {
             "role": "assistant",
-            "content": (
-                "Hello! I am your **Roboserv 4i Enterprise Policy Assistant**.\n\n"
-                "I can help you answer company policy questions with exact source citations, "
-                "check your leave balances, and submit leave requests safely with your confirmation."
-            ),
+            "content": init_msg,
+            "original_content": init_msg,
+            "current_lang": "en",
+            "translations": {"en": init_msg},
             "sources": [],
             "actions": []
         }
@@ -208,7 +242,21 @@ with st.sidebar:
         with c3:
             st.metric(label="Paid", value=f"{bal_info.get('paid_leave', 0)} d")
     else:
-        st.warning("Leave balance unavailable.")
+        st.info("Leave balances loading...")
+
+    st.markdown("---")
+    st.subheader("🌐 Language / भाषा")
+    lang_map = {
+        "en": "English 🇬🇧",
+        "hi": "Hindi (हिंदी) 🇮🇳",
+        "mr": "Marathi (मराठी) 🚩"
+    }
+    selected_lang = st.selectbox(
+        "Response Language / भाषा निवडा:",
+        options=list(lang_map.keys()),
+        format_func=lambda x: lang_map[x],
+        index=0
+    )
 
     st.markdown("---")
     st.subheader("💡 Available Actions")
@@ -255,8 +303,15 @@ with col_p4:
 st.markdown("---")
 
 # Display conversation messages
-for msg in st.session_state.messages:
+for idx, msg in enumerate(st.session_state.messages):
     with st.chat_message(msg["role"]):
+        # Show active language indicator if translated
+        curr_lang = msg.get("current_lang", "en")
+        if curr_lang == "hi":
+            st.markdown("<span class='lang-badge'>🌐 भाषा: <b>हिंदी (Hindi)</b></span>", unsafe_allow_html=True)
+        elif curr_lang == "mr":
+            st.markdown("<span class='lang-badge'>🌐 भाषा: <b>मराठी (Marathi)</b></span>", unsafe_allow_html=True)
+
         st.markdown(msg["content"])
         
         # Display policy citations if available
@@ -279,6 +334,41 @@ for msg in st.session_state.messages:
                     unsafe_allow_html=True
                 )
 
+        # Quick Translate Action Buttons for Assistant responses
+        if msg["role"] == "assistant" and msg.get("content"):
+            if "translations" not in msg:
+                msg["translations"] = {"en": msg.get("original_content", msg["content"])}
+            if "original_content" not in msg:
+                msg["original_content"] = msg["content"]
+            if "current_lang" not in msg:
+                msg["current_lang"] = "en"
+
+            st.markdown("<div style='margin-top: 6px; margin-bottom: 2px;'></div>", unsafe_allow_html=True)
+            col_t1, col_t2, col_t3, _ = st.columns([1.1, 1.1, 1.1, 3.5])
+            with col_t1:
+                if st.button("🇮🇳 हिंदी", key=f"tr_hi_{idx}", help="हिंदी में अनुवाद करें (Translate to Hindi)"):
+                    if "hi" not in msg["translations"]:
+                        with st.spinner("हिंदी में अनुवाद हो रहा है..."):
+                            msg["translations"]["hi"] = call_translate_api(msg["original_content"], "hi")
+                    msg["content"] = msg["translations"]["hi"]
+                    msg["current_lang"] = "hi"
+                    st.rerun()
+
+            with col_t2:
+                if st.button("🚩 मराठी", key=f"tr_mr_{idx}", help="मराठीत भाषांतर करा (Translate to Marathi)"):
+                    if "mr" not in msg["translations"]:
+                        with st.spinner("मराठीत भाषांतर करत आहे..."):
+                            msg["translations"]["mr"] = call_translate_api(msg["original_content"], "mr")
+                    msg["content"] = msg["translations"]["mr"]
+                    msg["current_lang"] = "mr"
+                    st.rerun()
+
+            with col_t3:
+                if st.button("🇬🇧 English", key=f"tr_en_{idx}", help="View original English response"):
+                    msg["content"] = msg["translations"].get("en", msg["original_content"])
+                    msg["current_lang"] = "en"
+                    st.rerun()
+
 
 # Interactive confirmation box if leave confirmation is pending
 if st.session_state.pending_confirmation:
@@ -297,13 +387,25 @@ if st.session_state.pending_confirmation:
                     confirmed=True,
                     extra_state=pending
                 )
+                ans = resp.get("answer", "Request processed.")
+                disp_ans = ans
+                curr_l = "en"
+                t_cache = {"en": ans}
+                if selected_lang != "en":
+                    disp_ans = call_translate_api(ans, selected_lang)
+                    curr_l = selected_lang
+                    t_cache[selected_lang] = disp_ans
+
                 st.session_state.messages.append({
                     "role": "user",
                     "content": "Yes, submit it."
                 })
                 st.session_state.messages.append({
                     "role": "assistant",
-                    "content": resp.get("answer", "Request processed."),
+                    "content": disp_ans,
+                    "original_content": ans,
+                    "current_lang": curr_l,
+                    "translations": t_cache,
                     "sources": resp.get("sources", []),
                     "actions": resp.get("actions", [])
                 })
@@ -312,6 +414,15 @@ if st.session_state.pending_confirmation:
 
     with col_c2:
         if st.button("❌ Cancel", use_container_width=False):
+            cancel_msg = "Leave request has been cancelled. No changes were made."
+            disp_cancel = cancel_msg
+            curr_l = "en"
+            t_cache = {"en": cancel_msg}
+            if selected_lang != "en":
+                disp_cancel = call_translate_api(cancel_msg, selected_lang)
+                curr_l = selected_lang
+                t_cache[selected_lang] = disp_cancel
+
             st.session_state.pending_confirmation = None
             st.session_state.messages.append({
                 "role": "user",
@@ -319,7 +430,10 @@ if st.session_state.pending_confirmation:
             })
             st.session_state.messages.append({
                 "role": "assistant",
-                "content": "Leave request has been cancelled. No changes were made.",
+                "content": disp_cancel,
+                "original_content": cancel_msg,
+                "current_lang": curr_l,
+                "translations": t_cache,
                 "sources": [],
                 "actions": []
             })
@@ -356,7 +470,17 @@ if user_input:
             actions = response_data.get("actions", [])
             conf_req = response_data.get("confirmation_required", False)
 
-            st.markdown(answer)
+            # Auto-translate if user selected Hindi or Marathi
+            displayed_answer = answer
+            curr_lang = "en"
+            trans_cache = {"en": answer}
+            if selected_lang != "en":
+                with st.spinner(f"Translating response to {lang_map.get(selected_lang)}..."):
+                    displayed_answer = call_translate_api(answer, selected_lang)
+                    curr_lang = selected_lang
+                    trans_cache[selected_lang] = displayed_answer
+
+            st.markdown(displayed_answer)
 
             if sources:
                 st.markdown("##### 📚 Sources & Citations:")
@@ -379,7 +503,10 @@ if user_input:
             # Store in session state
             st.session_state.messages.append({
                 "role": "assistant",
-                "content": answer,
+                "content": displayed_answer,
+                "original_content": answer,
+                "current_lang": curr_lang,
+                "translations": trans_cache,
                 "sources": sources,
                 "actions": actions
             })

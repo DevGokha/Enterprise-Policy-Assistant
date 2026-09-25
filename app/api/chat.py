@@ -80,6 +80,17 @@ class AgentWorkflowRequest(BaseModel):
     extra_state: Optional[Dict[str, Any]] = None
 
 
+class TranslateRequest(BaseModel):
+    text: str = Field(..., description="Text to translate")
+    target_lang: str = Field(default="hi", description="Target language code: 'hi' (Hindi), 'mr' (Marathi), 'en' (English)")
+
+
+class TranslateResponse(BaseModel):
+    original_text: str
+    translated_text: str
+    target_lang: str
+
+
 # ---------------------------------------------------------
 # API Endpoints
 # ---------------------------------------------------------
@@ -113,6 +124,28 @@ def chat_endpoint(req: ChatRequest):
     except Exception as e:
         logger.error(f"Error executing chat endpoint: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Internal assistant error: {str(e)}")
+
+
+@router.post("/translate", response_model=TranslateResponse)
+def translate_endpoint(req: TranslateRequest):
+    """Translate assistant response to Hindi or Marathi."""
+    if not req.text.strip():
+        return TranslateResponse(original_text="", translated_text="", target_lang=req.target_lang)
+    from app.agent.llm import translate_text
+    try:
+        translated = translate_text(req.text, req.target_lang)
+        return TranslateResponse(
+            original_text=req.text,
+            translated_text=translated,
+            target_lang=req.target_lang
+        )
+    except Exception as e:
+        logger.error(f"Translation endpoint error: {e}")
+        return TranslateResponse(
+            original_text=req.text,
+            translated_text=req.text,
+            target_lang=req.target_lang
+        )
 
 
 @router.post("/agent")

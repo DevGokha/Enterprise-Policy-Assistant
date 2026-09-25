@@ -79,7 +79,12 @@ def seed_database():
                 db.add(bal)
                 logger.info(f"Added employee {data['employee_id']} - {data['name']}")
             else:
-                logger.info(f"Employee {data['employee_id']} already exists, skipping.")
+                existing_bal = db.query(LeaveBalance).filter(LeaveBalance.employee_id == data["employee_id"]).first()
+                if existing_bal:
+                    existing_bal.casual_leave = data["balances"]["casual_leave"]
+                    existing_bal.sick_leave = data["balances"]["sick_leave"]
+                    existing_bal.paid_leave = data["balances"]["paid_leave"]
+                logger.info(f"Refreshed employee {data['employee_id']} balances.")
 
         db.commit()
         logger.info("Database seeding completed successfully.")
