@@ -1,9 +1,11 @@
 """FastAPI router for Chat and Enterprise Assistant endpoints."""
 
 import logging
+from pathlib import Path
 from typing import List, Dict, Any, Optional
 from pydantic import BaseModel, Field
 from fastapi import APIRouter, HTTPException, Depends
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.agent.graph import run_agent_workflow
@@ -243,3 +245,18 @@ def get_leave_request_endpoint(request_id: str):
     if not req_data:
         raise HTTPException(status_code=404, detail=f"Leave request '{request_id}' not found.")
     return req_data
+
+
+@router.get("/documents/{filename}")
+def get_document_pdf(filename: str):
+    """Serve policy PDF document by filename."""
+    # Prevent directory traversal attacks
+    clean_filename = Path(filename).name
+    doc_path = Path("data/documents") / clean_filename
+    if not doc_path.exists() or not doc_path.is_file():
+        raise HTTPException(status_code=404, detail=f"Policy document '{clean_filename}' not found.")
+    return FileResponse(
+        path=str(doc_path),
+        filename=clean_filename,
+        media_type="application/pdf"
+    )

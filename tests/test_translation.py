@@ -57,3 +57,15 @@ def test_translate_api_endpoint():
     })
     assert res_empty.status_code == 200
     assert res_empty.json()["translated_text"] == ""
+
+
+def test_get_document_pdf_endpoint():
+    """Verify GET /api/documents/{filename} serves valid PDF files."""
+    res = client.get("/api/documents/leave_policy.pdf")
+    assert res.status_code == 200
+    assert res.headers["content-type"] == "application/pdf"
+    assert len(res.content) > 1000
+
+    # Test non-existent file
+    res_404 = client.get("/api/documents/non_existent_policy.pdf")
+    assert res_404.status_code == 404

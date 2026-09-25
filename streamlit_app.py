@@ -1,9 +1,8 @@
-"""Streamlit Web Dashboard for Roboserv 4i Enterprise Policy Assistant."""
-
 import os
 import requests
 import streamlit as st
 from datetime import datetime
+from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -267,6 +266,29 @@ with st.sidebar:
     - 🔎 **Track Request Status** (e.g. *Status for LV1025*)
     """)
 
+    # Policy Document Repository Browser
+    with st.expander("📁 Company Policy Documents"):
+        doc_dir = Path("data/documents")
+        if doc_dir.exists():
+            pdf_files = sorted([p.name for p in doc_dir.glob("*.pdf")])
+            sel_pdf = st.selectbox("Select Policy PDF:", options=pdf_files, key="sb_pdf_select")
+            if sel_pdf:
+                sel_path = doc_dir / sel_pdf
+                with open(sel_path, "rb") as spf:
+                    st.download_button(
+                        label=f"📥 Download {sel_pdf}",
+                        data=spf.read(),
+                        file_name=sel_pdf,
+                        mime="application/pdf",
+                        key="sidebar_dl_pdf",
+                        use_container_width=True
+                    )
+                st.link_button(
+                    label=f"👁️ View {sel_pdf}",
+                    url=f"{API_BASE_URL}/api/documents/{sel_pdf}",
+                    use_container_width=True
+                )
+
     if st.button("🗑️ Clear Chat History", use_container_width=True):
         st.session_state.messages = []
         st.session_state.pending_confirmation = None
@@ -318,13 +340,39 @@ for idx, msg in enumerate(st.session_state.messages):
         if msg.get("sources"):
             st.markdown("##### 📚 Policy Source:")
             for s in msg["sources"][:1]:
+                doc_name = s.get("document", "")
+                page_num = s.get("page", 1)
+                dept = s.get("department", "HR")
+
                 st.markdown(
                     f'<div class="citation-card">'
-                    f'📄 <b>{s.get("document")}</b> — Page <b>{s.get("page")}</b> | '
-                    f'Department: <i>{s.get("department", "HR")}</i>'
+                    f'📄 <b>{doc_name}</b> — Page <b>{page_num}</b> | '
+                    f'Department: <i>{dept}</i>'
                     f'</div>',
                     unsafe_allow_html=True
                 )
+
+                # PDF Download and Browser View buttons
+                pdf_path = Path("data/documents") / doc_name
+                if pdf_path.exists():
+                    p_col1, p_col2, _ = st.columns([1.5, 1.5, 3])
+                    with open(pdf_path, "rb") as pf:
+                        pdf_bytes = pf.read()
+                    with p_col1:
+                        st.download_button(
+                            label="📥 Download PDF",
+                            data=pdf_bytes,
+                            file_name=doc_name,
+                            mime="application/pdf",
+                            key=f"dl_msg_{idx}_{doc_name}",
+                            help=f"Download official {doc_name}"
+                        )
+                    with p_col2:
+                        st.link_button(
+                            label="👁️ View PDF",
+                            url=f"{API_BASE_URL}/api/documents/{doc_name}",
+                            help=f"Open {doc_name} in browser tab"
+                        )
 
         # Display Action badges if any
         if msg.get("actions"):
@@ -485,13 +533,38 @@ if user_input:
             if sources:
                 st.markdown("##### 📚 Policy Source:")
                 for s in sources[:1]:
+                    doc_name = s.get("document", "")
+                    page_num = s.get("page", 1)
+                    dept = s.get("department", "HR")
+
                     st.markdown(
                         f'<div class="citation-card">'
-                        f'📄 <b>{s.get("document")}</b> — Page <b>{s.get("page")}</b> | '
-                        f'Department: <i>{s.get("department", "HR")}</i>'
+                        f'📄 <b>{doc_name}</b> — Page <b>{page_num}</b> | '
+                        f'Department: <i>{dept}</i>'
                         f'</div>',
                         unsafe_allow_html=True
                     )
+
+                    pdf_path = Path("data/documents") / doc_name
+                    if pdf_path.exists():
+                        p_col1, p_col2, _ = st.columns([1.5, 1.5, 3])
+                        with open(pdf_path, "rb") as pf:
+                            pdf_bytes = pf.read()
+                        with p_col1:
+                            st.download_button(
+                                label="📥 Download PDF",
+                                data=pdf_bytes,
+                                file_name=doc_name,
+                                mime="application/pdf",
+                                key=f"dl_live_{doc_name}",
+                                help=f"Download official {doc_name}"
+                            )
+                        with p_col2:
+                            st.link_button(
+                                label="👁️ View PDF",
+                                url=f"{API_BASE_URL}/api/documents/{doc_name}",
+                                help=f"Open {doc_name} in browser tab"
+                            )
 
             if actions:
                 for act in actions:
