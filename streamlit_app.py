@@ -78,6 +78,80 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+# Multilingual UI Dictionary for English, Hindi, and Marathi
+UI_STRINGS = {
+    "en": {
+        "title": "Roboserv 4i Enterprise Policy Assistant",
+        "subtitle": "Grounded RAG Policy Q&A + Agentic HR Workflow with Confirmation Safety",
+        "quick_prompts_title": "💡 Quick Prompts:",
+        "p1_label": "How many casual leaves allowed?",
+        "p1_query": "How many casual leaves are allowed?",
+        "p2_label": "What is the WFH policy?",
+        "p2_query": "What is the work-from-home policy?",
+        "p3_label": "How many paid leaves do I have?",
+        "p3_query": "How many paid leaves do I have?",
+        "p4_label": "Apply leave from Oct 5 to Oct 7",
+        "p4_query": "Apply casual leave from October 5 to October 7",
+        "chat_placeholder": "Ask a policy question or apply for leave...",
+        "analyzing": "Analyzing request and consulting policies...",
+        "translating": "Translating response...",
+        "confirm_required": "⚠️ **Confirmation Required:** A state-changing leave transaction is awaiting your authorization.",
+        "confirm_btn": "✅ Confirm Leave Request",
+        "cancel_btn": "❌ Cancel",
+        "clear_btn": "🗑️ Clear Chat History",
+        "policy_source": "📚 Policy Source:",
+        "download_pdf": "📥 Download PDF",
+        "view_pdf": "👁️ View PDF"
+    },
+    "hi": {
+        "title": "Roboserv 4i एंटरप्राइज़ पॉलिसी असिस्टेंट",
+        "subtitle": "सत्यापित RAG पॉलिसी प्रश्नोत्तर + सुरक्षा पुष्टिकरण के साथ Agentic HR वर्कफ़्लो",
+        "quick_prompts_title": "💡 त्वरित प्रश्न (Quick Prompts):",
+        "p1_label": "कैजुअल लीव कितने मिलते हैं?",
+        "p1_query": "How many casual leaves are allowed?",
+        "p2_label": "WFH (वर्क फ्रॉम होम) नीति क्या है?",
+        "p2_query": "What is the work-from-home policy?",
+        "p3_label": "मेरे पास कितने पेड लीव हैं?",
+        "p3_query": "How many paid leaves do I have?",
+        "p4_label": "5 से 7 अक्टूबर तक लीव अप्लाई करें",
+        "p4_query": "Apply casual leave from October 5 to October 7",
+        "chat_placeholder": "पॉलिसी प्रश्न पूछें या छुट्टी के लिए आवेदन करें...",
+        "analyzing": "अनुरोध का विश्लेषण और नीतियों की समीक्षा हो रही है...",
+        "translating": "उत्तर का अनुवाद किया जा रहा है...",
+        "confirm_required": "⚠️ **पुष्टिकरण आवश्यक:** एक अवकाश आवेदन आपके अनुमोदन की प्रतीक्षा कर रहा है।",
+        "confirm_btn": "✅ अवकाश अनुरोध की पुष्टि करें",
+        "cancel_btn": "❌ रद्द करें",
+        "clear_btn": "🗑️ चैट इतिहास साफ़ करें",
+        "policy_source": "📚 पॉलिसी स्रोत:",
+        "download_pdf": "📥 PDF डाउनलोड करें",
+        "view_pdf": "👁️ PDF देखें"
+    },
+    "mr": {
+        "title": "Roboserv 4i एंटरप्राइझ पॉलिसी सहाय्यक",
+        "subtitle": "पुष्टीकरण सुरक्षेसह ग्राउंडेड RAG पॉलिसी प्रश्नोत्तरे + Agentic HR कार्यप्रवाह",
+        "quick_prompts_title": "💡 जलद प्रश्न (Quick Prompts):",
+        "p1_label": "किती कॅज्युअल रजा मिळतात?",
+        "p1_query": "How many casual leaves are allowed?",
+        "p2_label": "वर्क फ्रॉम होम (WFH) धोरण काय आहे?",
+        "p2_query": "What is the work-from-home policy?",
+        "p3_label": "माझ्याकडे किती सशुल्क रजा शिल्लक आहेत?",
+        "p3_query": "How many paid leaves do I have?",
+        "p4_label": "5 ते 7 ऑक्टोबरपर्यंत रजेसाठी अर्ज करा",
+        "p4_query": "Apply casual leave from October 5 to October 7",
+        "chat_placeholder": "धोरणाविषयी प्रश्न विचारा किंवा रजेसाठी अर्ज करा...",
+        "analyzing": "विनंतीचे विश्लेषण आणि धोरणांची पडताळणी करत आहे...",
+        "translating": "उत्तराचे भाषांतर करत आहे...",
+        "confirm_required": "⚠️ **पुष्टीकरण आवश्यक:** रजेचा अर्ज तुमच्या मंजुरीच्या प्रतीक्षेत आहे.",
+        "confirm_btn": "✅ रजेचा अर्ज मंजूर करा",
+        "cancel_btn": "❌ रद्द करा",
+        "clear_btn": "🗑️ चॅट इतिहास साफ करा",
+        "policy_source": "📚 धोरण संदर्भ:",
+        "download_pdf": "📥 PDF डाउनलोड करा",
+        "view_pdf": "👁️ PDF पहा"
+    }
+}
+
+
 # Helper function to query backend or direct fallback
 def get_employee_data(emp_id: str):
     """Retrieve employee details and leave balance from API or direct fallback."""
@@ -192,6 +266,9 @@ if "messages" not in st.session_state:
 if "pending_confirmation" not in st.session_state:
     st.session_state.pending_confirmation = None
 
+if "app_language" not in st.session_state:
+    st.session_state.app_language = "en"
+
 
 # ---------------------------------------------------------
 # SIDEBAR: Employee Profile & Leave Balances
@@ -251,12 +328,19 @@ with st.sidebar:
         "hi": "Hindi (हिंदी) 🇮🇳",
         "mr": "Marathi (मराठी) 🚩"
     }
+    lang_keys = list(lang_map.keys())
+    curr_l = st.session_state.get("app_language", "en")
+    curr_idx = lang_keys.index(curr_l) if curr_l in lang_keys else 0
     selected_lang = st.selectbox(
         "Response Language / भाषा निवडा:",
-        options=list(lang_map.keys()),
+        options=lang_keys,
         format_func=lambda x: lang_map[x],
-        index=0
+        index=curr_idx,
+        key="sb_lang_select"
     )
+    if selected_lang != st.session_state.app_language:
+        st.session_state.app_language = selected_lang
+        st.rerun()
 
     st.markdown("---")
     st.subheader("💡 Available Actions")
@@ -300,28 +384,44 @@ with st.sidebar:
 # MAIN PAGE: Chat Interface
 # ---------------------------------------------------------
 
-st.markdown('<div class="main-title">Roboserv 4i Enterprise Policy Assistant</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-title">Grounded RAG Policy Q&A + Agentic HR Workflow with Confirmation Safety</div>', unsafe_allow_html=True)
+curr_lang = st.session_state.get("app_language", "en")
+ui = UI_STRINGS.get(curr_lang, UI_STRINGS["en"])
 
-# Quick Prompt Suggestions
-st.markdown("**Quick Prompts:**")
+st.markdown(f'<div class="main-title">{ui["title"]}</div>', unsafe_allow_html=True)
+st.markdown(f'<div class="sub-title">{ui["subtitle"]}</div>', unsafe_allow_html=True)
+
+# Quick Prompt Suggestions & Multilingual Language Switcher
+col_head, col_lang_btns = st.columns([3, 2.2])
+with col_head:
+    st.markdown(f"**{ui['quick_prompts_title']}**")
+with col_lang_btns:
+    l_c1, l_c2, l_c3 = st.columns(3)
+    with l_c1:
+        if st.button("🇬🇧 English", key="top_l_en", type="primary" if curr_lang == "en" else "secondary", use_container_width=True):
+            st.session_state.app_language = "en"
+            st.rerun()
+    with l_c2:
+        if st.button("🇮🇳 हिंदी", key="top_l_hi", type="primary" if curr_lang == "hi" else "secondary", use_container_width=True):
+            st.session_state.app_language = "hi"
+            st.rerun()
+    with l_c3:
+        if st.button("🚩 मराठी", key="top_l_mr", type="primary" if curr_lang == "mr" else "secondary", use_container_width=True):
+            st.session_state.app_language = "mr"
+            st.rerun()
+
 col_p1, col_p2, col_p3, col_p4 = st.columns(4)
 with col_p1:
-    if st.button("How many casual leaves allowed?", use_container_width=True):
-        prompt_input = "How many casual leaves are allowed?"
-        st.session_state.queued_prompt = prompt_input
+    if st.button(ui["p1_label"], use_container_width=True, key="qp_1"):
+        st.session_state.queued_prompt = ui["p1_query"]
 with col_p2:
-    if st.button("What is the WFH policy?", use_container_width=True):
-        prompt_input = "What is the work-from-home policy?"
-        st.session_state.queued_prompt = prompt_input
+    if st.button(ui["p2_label"], use_container_width=True, key="qp_2"):
+        st.session_state.queued_prompt = ui["p2_query"]
 with col_p3:
-    if st.button("How many paid leaves do I have?", use_container_width=True):
-        prompt_input = "How many paid leaves do I have?"
-        st.session_state.queued_prompt = prompt_input
+    if st.button(ui["p3_label"], use_container_width=True, key="qp_3"):
+        st.session_state.queued_prompt = ui["p3_query"]
 with col_p4:
-    if st.button("Apply leave from Oct 5 to Oct 7", use_container_width=True):
-        prompt_input = "Apply casual leave from October 5 to October 7"
-        st.session_state.queued_prompt = prompt_input
+    if st.button(ui["p4_label"], use_container_width=True, key="qp_4"):
+        st.session_state.queued_prompt = ui["p4_query"]
 
 st.markdown("---")
 
@@ -339,7 +439,7 @@ for idx, msg in enumerate(st.session_state.messages):
         
         # Display policy citation if available (Option 2: Top relevant source)
         if msg.get("sources"):
-            st.markdown("##### 📚 Policy Source:")
+            st.markdown(f"##### {ui['policy_source']}")
             for s in msg["sources"][:1]:
                 doc_name = s.get("document", "")
                 page_num = s.get("page", 1)
@@ -361,7 +461,7 @@ for idx, msg in enumerate(st.session_state.messages):
                         pdf_bytes = pf.read()
                     with p_col1:
                         st.download_button(
-                            label="📥 Download PDF",
+                            label=ui["download_pdf"],
                             data=pdf_bytes,
                             file_name=doc_name,
                             mime="application/pdf",
@@ -370,7 +470,7 @@ for idx, msg in enumerate(st.session_state.messages):
                         )
                     with p_col2:
                         st.link_button(
-                            label="👁️ View PDF",
+                            label=ui["view_pdf"],
                             url=f"{API_BASE_URL}/api/documents/{doc_name}",
                             help=f"Open {doc_name} in browser tab"
                         )
@@ -423,13 +523,13 @@ for idx, msg in enumerate(st.session_state.messages):
 if st.session_state.pending_confirmation:
     pending = st.session_state.pending_confirmation
     st.markdown("---")
-    st.warning("⚠️ **Confirmation Required:** A state-changing leave transaction is awaiting your authorization.")
+    st.warning(ui["confirm_required"])
     
     col_c1, col_c2 = st.columns([1, 4])
     with col_c1:
-        if st.button("✅ Confirm Leave Request", type="primary", use_container_width=True):
+        if st.button(ui["confirm_btn"], type="primary", use_container_width=True):
             # Process confirmed leave request
-            with st.spinner("Submitting leave request to database..."):
+            with st.spinner(ui["submitting"]):
                 resp = call_chat_api(
                     emp_id=selected_emp_id,
                     message="Yes, submit it.",
@@ -462,7 +562,7 @@ if st.session_state.pending_confirmation:
                 st.rerun()
 
     with col_c2:
-        if st.button("❌ Cancel", use_container_width=False):
+        if st.button(ui["cancel_btn"], use_container_width=False):
             cancel_msg = "Leave request has been cancelled. No changes were made."
             disp_cancel = cancel_msg
             curr_l = "en"
@@ -490,7 +590,7 @@ if st.session_state.pending_confirmation:
 
 
 # Chat Input
-user_input = st.chat_input("Ask a policy question or apply for leave...")
+user_input = st.chat_input(ui["chat_placeholder"])
 
 # Check if a quick button was clicked
 if "queued_prompt" in st.session_state and st.session_state.queued_prompt:
@@ -505,7 +605,7 @@ if user_input:
 
     # Invoke assistant
     with st.chat_message("assistant"):
-        with st.spinner("Analyzing request and consulting policies..."):
+        with st.spinner(ui["analyzing"]):
             extra = st.session_state.pending_confirmation if st.session_state.pending_confirmation else None
             response_data = call_chat_api(
                 emp_id=selected_emp_id,
@@ -532,7 +632,7 @@ if user_input:
             st.markdown(displayed_answer)
 
             if sources:
-                st.markdown("##### 📚 Policy Source:")
+                st.markdown(f"##### {ui['policy_source']}")
                 for s in sources[:1]:
                     doc_name = s.get("document", "")
                     page_num = s.get("page", 1)
@@ -553,7 +653,7 @@ if user_input:
                             pdf_bytes = pf.read()
                         with p_col1:
                             st.download_button(
-                                label="📥 Download PDF",
+                                label=ui["download_pdf"],
                                 data=pdf_bytes,
                                 file_name=doc_name,
                                 mime="application/pdf",
@@ -562,7 +662,7 @@ if user_input:
                             )
                         with p_col2:
                             st.link_button(
-                                label="👁️ View PDF",
+                                label=ui["view_pdf"],
                                 url=f"{API_BASE_URL}/api/documents/{doc_name}",
                                 help=f"Open {doc_name} in browser tab"
                             )
