@@ -9,7 +9,7 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 
-DEFAULT_MODEL = os.getenv("LLM_MODEL", "llama-3.3-70b-versatile")
+DEFAULT_MODEL = os.getenv("LLM_MODEL", "openai/gpt-oss-120b")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
 
 # In-memory translation cache to avoid repeated requests and latency
@@ -24,19 +24,28 @@ def is_valid_groq_key(key: str) -> bool:
 def get_llm(model_name: Optional[str] = None):
     """Retrieve LangChain ChatGroq instance if valid API key is present."""
     api_key = os.getenv("GROQ_API_KEY", GROQ_API_KEY)
-    model = model_name or os.getenv("LLM_MODEL", DEFAULT_MODEL)
+    primary_model = model_name or os.getenv("LLM_MODEL", DEFAULT_MODEL)
 
-    if is_valid_groq_key(api_key):
+    if not is_valid_groq_key(api_key):
+        return None
+
+    candidate_models = [primary_model, "openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.8-27b", "llama-3.3-70b-versatile"]
+    # De-duplicate while preserving order
+    seen = set()
+    models_to_try = [m for m in candidate_models if not (m in seen or seen.add(m))]
+
+    from langchain_groq import ChatGroq
+    for m in models_to_try:
         try:
-            from langchain_groq import ChatGroq
             return ChatGroq(
                 groq_api_key=api_key,
-                model_name=model,
+                model_name=m,
                 temperature=0.1
             )
         except Exception as e:
-            logger.error(f"Failed to initialize ChatGroq: {e}")
-            return None
+            logger.debug(f"Could not initialize ChatGroq with model {m}: {e}")
+            continue
+
     return None
 
 
