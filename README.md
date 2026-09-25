@@ -25,8 +25,7 @@ Designed specifically for **TCS NQT / AI-ML / GenAI Specialist interview portfol
 - [9. Demo Scenarios & User Flows](#9-demo-scenarios--user-flows)
 - [10. API Specification & Examples](#10-api-specification--examples)
 - [11. Confirmation Safety & Security Guardrails](#11-confirmation-safety--security-guardrails)
-- [12. Interview Q&A (TCS NQT / GenAI Specialist)](#12-interview-qa-tcs-nqt--genai-specialist)
-- [13. Future Roadmap & Scaling](#13-future-roadmap--scaling)
+- [12. Future Roadmap & Scaling](#12-future-roadmap--scaling)
 
 ---
 
@@ -324,44 +323,7 @@ curl -X POST "http://localhost:8000/api/index"
 
 ---
 
-## 12. Interview Q&A (TCS NQT / GenAI Specialist)
-
-#### Q1: Why did you use RAG instead of fine-tuning the LLM?
-> **Answer:** Company policies change frequently (e.g., annual revisions, updated allowances). Fine-tuning is costly, slow, and prone to hallucinations. RAG allows dynamic document updates simply by re-indexing files without retraining the model. RAG also provides exact source citations (document name and page number) required for audit compliance.
-
-#### Q2: What are embeddings and why use SentenceTransformers locally?
-> **Answer:** Embeddings are dense mathematical vector representations of text where semantically similar phrases are located close to each other in vector space. We used `sentence-transformers/all-MiniLM-L6-v2` because it runs locally with zero external API latency, has a compact 384-dimensional footprint, and does not send internal policy data to external embedding APIs.
-
-#### Q3: Why did you choose FAISS?
-> **Answer:** FAISS (Facebook AI Similarity Search) is an optimized C++ vector library designed for high-performance nearest-neighbor search. For our enterprise dataset, FAISS `IndexFlatIP` with normalized vectors provides instantaneous cosine similarity search with minimal memory overhead and zero external infrastructure dependencies.
-
-#### Q4: Why chunk documents rather than passing the whole PDF?
-> **Answer:** LLM context windows have token limits, and passing hundreds of pages causes high inference latency, high token costs, and the "needle in a haystack" attention degradation problem. Chunking (500 characters with 100 character overlap) isolates precise policy clauses so the retriever supplies only relevant context.
-
-#### Q5: What is the difference between RAG and Agentic AI?
-> **Answer:** RAG is **read-only retrieval**—it searches static text and synthesizes an answer. Agentic AI is **action-oriented reasoning**—it evaluates state, selects tools, checks preconditions (e.g. employee leave balances), coordinates sequential operations, and safely mutates state based on user confirmation.
-
-#### Q6: Why LangGraph instead of a standard LangChain AgentExecutor?
-> **Answer:** Standard AgentExecutor relies on autonomous, unconstrained ReAct loops that can behave unpredictably in enterprise environments. LangGraph allows us to define an explicit, deterministic state machine with strict validation nodes, typed state dictionaries, and mandatory confirmation gates.
-
-#### Q7: How do you prevent the LLM from hallucinating policy rules?
-> **Answer:** Through strict system prompt engineering, temperature reduction (0.1), explicit instruction to return *"I could not find this information in the available company policy documents."* when context is missing, and requiring source and page citations for every factual claim.
-
-#### Q8: How does the leave workflow handle safety?
-> **Answer:** The workflow employs a two-phase commit:
-> 1. In Phase 1, it only runs read-only tools (`get_leave_balance`, `calculate_leave_days`, `check_leave_eligibility`). It sets `confirmation_required=True` and returns a summary.
-> 2. In Phase 2, only upon explicit confirmation does it execute `create_leave_request`, which atomically creates the record and decrements the balance in a database transaction.
-
-#### Q9: How would you scale this architecture to a large enterprise?
-> **Answer:**
-> - **Database:** Migrate SQLite to PostgreSQL with read replicas and row-level security (RLS).
-> - **Vectorstore:** Replace local FAISS with managed vector databases like pgvector, Qdrant, or Pinecone with hybrid search (dense + BM25 sparse).
-> - **Authentication:** Integrate SSO (OAuth2 / SAML / Azure AD) with JWT validation in FastAPI middleware.
-> - **Deployment:** Containerize using Docker and deploy to Kubernetes or AWS ECS with auto-scaling.
-
----
-
-## 13. Future Roadmap & Scaling
+## 12. Future Roadmap & Scaling
 - [ ] Add Multi-factor Approval Matrix (Manager notification via Slack / Teams webhook)
 - [ ] Implement Hybrid Search (BM25 lexical search + FAISS dense semantic search)
 - [ ] Add PDF Viewer in Streamlit with highlighted source clauses
