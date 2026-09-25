@@ -46,9 +46,11 @@ The **Enterprise Policy Assistant** provides:
 ## 2. Key Features
 
 - 🔍 **Real RAG Pipeline**: Extracts, chunks, and indexes 10 authentic Roboserv 4i policy PDFs using `sentence-transformers/all-MiniLM-L6-v2` and FAISS.
-- 📄 **Precise Citations**: Every policy response displays the source document and page number (e.g. `leave_policy.pdf, Page 3`).
+- 📄 **Precise Citations & PDF Viewer**: Every policy response displays the source document and page number with one-click **in-browser PDF preview** and **direct download**.
+- 🌐 **Multilingual Support (English, Hindi, Marathi)**: Zero-shot translation for questions and responses with localized UI prompts and buttons.
 - 🤖 **Single-Agent LangGraph Workflow**: Controlled state machine that routes queries between knowledge retrieval and HR action tools without unnecessary multi-agent complexity.
 - 🛡️ **Confirmation Guardrails**: State-changing operations (such as submitting leave requests and deducting leave balances) require explicit user confirmation.
+- 📋 **Leave Request Tracking**: Live tracking of leave applications (`Pending`, `Approved`, `Rejected`) with audit records in SQLite.
 - 💾 **Relational SQLite Storage**: Clean SQLAlchemy models storing employees, leave balances, and request histories.
 - 🌐 **Full-Stack REST & UI**: Robust FastAPI backend with CORS + interactive Streamlit dashboard.
 
@@ -68,7 +70,7 @@ User (Employee)
        │                                        ├── Chunking & Metadata
        │                                        ├── SentenceTransformers (all-MiniLM-L6-v2)
        │                                        ├── FAISS Vector Index
-       │                                        └── Groq LLM (llama-3.3-70b-versatile)
+       │                                        └── Groq LPU (openai/gpt-oss-120b / llama-3.3-70b)
        │
        └── [Intent: leave_request / balance] ──→ HR Tools Layer
                                                 ├── Employee Lookup Tool
@@ -93,13 +95,13 @@ User (Employee)
 
 ## 5. Technology Stack
 
-- **Backend**: Python 3.11+, FastAPI, Uvicorn, Pydantic v2
+- **Backend**: Python 3.10+, FastAPI, Uvicorn, Pydantic v2
 - **Agent Orchestration**: LangGraph, LangChain Core
 - **RAG & Embeddings**: FAISS (`faiss-cpu`), `sentence-transformers` (`all-MiniLM-L6-v2`), PyPDF
-- **LLM Provider**: Groq API (`llama-3.3-70b-versatile`) with offline fallback
+- **LLM Provider**: Groq LPU (`openai/gpt-oss-120b` / `llama-3.3-70b-versatile`) with resilient offline fallback
 - **Database**: SQLite, SQLAlchemy ORM
 - **Frontend**: Streamlit
-- **Testing**: Pytest, HTTPX
+- **Testing**: Pytest, HTTPX (25 automated tests)
 
 ---
 
@@ -154,7 +156,8 @@ enterprise-policy-assistant/
 ├── tests/
 │   ├── test_rag.py                 # Loader, chunking, retrieval tests
 │   ├── test_agent.py               # Intent routing & confirmation safety tests
-│   └── test_tools.py               # Employee, balance, calculation, eligibility tests
+│   ├── test_tools.py               # Employee, balance, calculation, eligibility tests
+│   └── test_translation.py         # Multilingual Hindi & Marathi translation tests
 │
 ├── streamlit_app.py                # Streamlit enterprise web dashboard
 ├── requirements.txt                # Production dependencies
@@ -174,7 +177,7 @@ enterprise-policy-assistant/
 
 ### 1. Clone & create virtual environment
 ```bash
-git clone https://github.com/yourusername/Enterprise-Policy-Assistant.git
+git clone https://github.com/DevGokha/Enterprise-Policy-Assistant.git
 cd Enterprise-Policy-Assistant
 
 python3 -m venv .venv
@@ -194,7 +197,7 @@ cp .env.example .env
 Edit `.env` and insert your Groq API key:
 ```ini
 GROQ_API_KEY=gsk_your_groq_api_key_here
-LLM_MODEL=llama-3.3-70b-versatile
+LLM_MODEL=openai/gpt-oss-120b
 DATABASE_URL=sqlite:///data/enterprise.db
 VECTORSTORE_DIR=data/vectorstore
 DOCUMENTS_DIR=data/documents
@@ -212,7 +215,7 @@ python -m data.generate_documents
 ```
 
 ### Step 2: Seed SQLite Database
-Seed sample employees (`EMP001` to `EMP005`) and starting leave balances:
+Seed sample employees (`EMP001` to `EMP006`: Abhishek Koli, Raj Teli, Hrutvik Owal, Santosh Barai, Divyansh Jha, Dev Gokha) and starting leave balances:
 ```bash
 python -m app.database.seed
 ```
@@ -306,7 +309,27 @@ curl "http://localhost:8000/api/employee/EMP001"
 curl "http://localhost:8000/api/employee/EMP001/leave-balance"
 ```
 
-### 4. Trigger Vector Indexing (`POST /api/index`)
+### 4. Fetch Leave Requests (`GET /api/employee/{id}/leave-requests`)
+```bash
+curl "http://localhost:8000/api/employee/EMP001/leave-requests"
+```
+
+### 5. Multilingual Translation (`POST /api/translate`)
+```bash
+curl -X POST "http://localhost:8000/api/translate" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "text": "Employees are entitled to 12 casual leaves.",
+       "target_lang": "hi"
+     }'
+```
+
+### 6. View Policy PDF Document (`GET /api/documents/{filename}`)
+```bash
+curl "http://localhost:8000/api/documents/leave_policy.pdf" --output leave_policy.pdf
+```
+
+### 7. Trigger Vector Indexing (`POST /api/index`)
 ```bash
 curl -X POST "http://localhost:8000/api/index"
 ```
@@ -324,10 +347,11 @@ curl -X POST "http://localhost:8000/api/index"
 ---
 
 ## 12. Future Roadmap & Scaling
-- [ ] Add Multi-factor Approval Matrix (Manager notification via Slack / Teams webhook)
-- [ ] Implement Hybrid Search (BM25 lexical search + FAISS dense semantic search)
-- [ ] Add PDF Viewer in Streamlit with highlighted source clauses
-- [ ] Expand to multi-lingual policy translation for international employees
+- [x] In-browser PDF Preview & direct downloads (`/api/documents/{filename}`)
+- [x] Multilingual translation across English, Hindi, and Marathi with localized UI
+- [x] Live Leave Request Status Tracking (`Pending`, `Approved`, `Rejected`)
+- [ ] Multi-factor Manager Approval Matrix (Slack / Teams webhook notifications)
+- [ ] Hybrid Search (BM25 lexical search + FAISS dense semantic search)
 
 ---
 
